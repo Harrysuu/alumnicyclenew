@@ -75,4 +75,15 @@ public class LifePostController {
 
     }
 
+    /***
+     *enrol a lifePost by userId
+     * @param lifePostId
+     * @return
+     */
+    @GetMapping("/enrolById")
+    public AjaxRes<LifePost> enrolLifePost(Long lifePostId){
+
+        return lifePostService.enrolLifePost(lifePostId);
+    }
+
 }

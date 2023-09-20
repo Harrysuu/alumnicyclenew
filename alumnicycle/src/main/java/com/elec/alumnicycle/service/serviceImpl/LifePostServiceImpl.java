@@ -6,11 +6,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.common.BaseContext;
 import com.elec.alumnicycle.entity.CreateLifePost;
+import com.elec.alumnicycle.entity.Enrol;
 import com.elec.alumnicycle.entity.params.LifePostByIdParam;
 import com.elec.alumnicycle.mapper.LifePostMapper;
 import com.elec.alumnicycle.entity.LifePost;
 import com.elec.alumnicycle.entity.params.LifePostParam;
 import com.elec.alumnicycle.service.CreateLifePostService;
+import com.elec.alumnicycle.service.EnrolService;
 import com.elec.alumnicycle.service.LifePostService;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapper;
@@ -31,8 +33,8 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
     @Autowired
     CreateLifePostService createLifePostService;
 
-
-
+    @Autowired
+    EnrolService enrolService;
 
     @Override
     public AjaxRes<Page<LifePost>> getPostBypage(LifePostParam param) {
@@ -111,6 +113,33 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
         return AjaxRes.success(page);
 
     }
+
+    @Override
+    public AjaxRes<LifePost> enrolLifePost(Long lifePostId) {
+        // get current userID
+//        Long currentUserId = BaseContext.getCurrentId();
+        Long currentUserId = 99L;
+
+        //get lifepost
+        LambdaQueryWrapper<LifePost> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(LifePost::getId,lifePostId);
+        LifePost lifePost = this.getOne(lqw);
+
+        // increase num of people enrol by 1
+        Long peopleEnrol = lifePost.getPeopleEnrol();
+        lifePost.setPeopleEnrol(peopleEnrol+1);
+        // save to LifePostService
+        this.updateById(lifePost);
+
+        // add data into link table "enrol"
+        Enrol enrol = new Enrol();
+        enrol.setUserId(currentUserId);
+        enrol.setLifePostId(lifePostId);
+        enrolService.save(enrol);
+
+        return AjaxRes.success(lifePost);
+    }
+
 
 
 

@@ -31,8 +31,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         BaseContext.setCurrentId(userId);
 
-        Long currentId = BaseContext.getCurrentId();
-//        String stringValueId = String.valueOf(currentId);
+        Long currentUserId = BaseContext.getCurrentId();
+//        String stringValueId = String.valueOf(currentUserId);
 //        log.info(stringValueId);
 
         return AjaxRes.success(user);
