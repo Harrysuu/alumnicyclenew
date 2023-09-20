@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.entity.LifePost;
+import com.elec.alumnicycle.entity.params.LifePostByIdParam;
 import com.elec.alumnicycle.entity.params.LifePostParam;
 import com.elec.alumnicycle.service.LifePostService;
 import io.swagger.annotations.Api;
@@ -50,7 +51,6 @@ public class LifePostController {
      */
     @GetMapping("/delete")
     public AjaxRes<String> deleteLifePost(Long id){
-
         return lifePostService.deleteLifePost(id);
     }
 
@@ -64,12 +64,14 @@ public class LifePostController {
         return lifePostService.updateLifePost(lifePost);
     }
 
+    /***
+     * getPostbyUserId
+     * @param param
+     * @return
+     */
     @GetMapping("/getbyUserId")
-    public AjaxRes<Page<LifePost>> getPostbyUserId(Long userId){
-
-//        String stringValueId = String.valueOf(userId);
-//        log.info(stringValueId);
-        return lifePostService.getPostbyUserId(userId);
+    public AjaxRes<Page<LifePost>> getPostbyUserId(LifePostByIdParam param){
+        return lifePostService.getPostbyUserId(param);
 
     }
 

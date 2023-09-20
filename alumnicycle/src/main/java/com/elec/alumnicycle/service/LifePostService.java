@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.entity.LifePost;
+import com.elec.alumnicycle.entity.params.LifePostByIdParam;
 import com.elec.alumnicycle.entity.params.LifePostParam;
 import com.elec.alumnicycle.mapper.LifePostMapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,7 +23,7 @@ public interface LifePostService extends IService<LifePost> {
 
     public AjaxRes<LifePost> updateLifePost(LifePost lifePost);
 
-    public AjaxRes<Page<LifePost>> getPostbyUserId(Long userId);
+    public AjaxRes<Page<LifePost>> getPostbyUserId(LifePostByIdParam param);
 
 //    List<LifePost> getLifePostsByUserId(Long userId);
 

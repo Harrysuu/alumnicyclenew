@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.common.BaseContext;
 import com.elec.alumnicycle.entity.CreateLifePost;
+import com.elec.alumnicycle.entity.params.LifePostByIdParam;
 import com.elec.alumnicycle.mapper.LifePostMapper;
 import com.elec.alumnicycle.entity.LifePost;
 import com.elec.alumnicycle.entity.params.LifePostParam;
@@ -100,11 +101,11 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
     }
 
     @Override
-    public AjaxRes<Page<LifePost>> getPostbyUserId(Long userId) {
+    public AjaxRes<Page<LifePost>> getPostbyUserId(LifePostByIdParam param) {
 
-        List<LifePost> lifePosts = lifePostMapper.getLifePostsByUserId(userId);
+        List<LifePost> lifePosts = lifePostMapper.getLifePostsByUserId(param.getUserId());
 
-        Page<LifePost> page = new Page<>(1, 10);
+        Page<LifePost> page = new Page<>(param.getPage(), param.getPageSize());
         page.setRecords(lifePosts);
 
         return AjaxRes.success(page);
