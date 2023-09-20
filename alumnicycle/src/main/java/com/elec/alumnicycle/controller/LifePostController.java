@@ -21,10 +21,56 @@ public class LifePostController {
     @Autowired
     private LifePostService lifePostService;
 
+    /**
+     * page search
+     * @param param
+     * @return
+     */
     @PostMapping("/page")
     @ApiOperation(value = "get posts according to page and category")
     public AjaxRes<Page<LifePost>> getPostByPage(@RequestBody LifePostParam param){
         return lifePostService.getPostBypage(param);
+    }
+
+    /***
+     *add a new lifePost
+     * @param lifePost
+     * @return
+     */
+    @PostMapping("/add")
+    @ApiOperation(value = "add a new lifePost")
+    public AjaxRes<String> addLifePost(@RequestBody LifePost lifePost){
+        return lifePostService.addLifePost(lifePost);
+    }
+
+    /***
+     *delete a lifePost by id
+     * @param id
+     * @return
+     */
+    @GetMapping("/delete")
+    public AjaxRes<String> deleteLifePost(Long id){
+
+        return lifePostService.deleteLifePost(id);
+    }
+
+    /***
+     * update lifepost
+     * @param lifePost
+     * @return
+     */
+    @PostMapping("/update")
+    public AjaxRes<LifePost> updateLifePost(@RequestBody LifePost lifePost){
+        return lifePostService.updateLifePost(lifePost);
+    }
+
+    @GetMapping("/getbyUserId")
+    public AjaxRes<Page<LifePost>> getPostbyUserId(Long userId){
+
+//        String stringValueId = String.valueOf(userId);
+//        log.info(stringValueId);
+        return lifePostService.getPostbyUserId(userId);
+
     }
 
 }

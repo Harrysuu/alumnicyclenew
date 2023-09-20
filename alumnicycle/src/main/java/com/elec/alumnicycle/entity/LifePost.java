@@ -3,8 +3,10 @@ package com.elec.alumnicycle.entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import net.bytebuddy.asm.Advice;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -28,10 +30,10 @@ public class LifePost {
 
     @ApiModelProperty(value = "create time")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date postTime;
+    private LocalDateTime postTime;
 
     @ApiModelProperty(value = "activity time")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date activityTime;
+    private LocalDateTime activityTime;
 
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.elec.alumnicycle.mapper.LifePostMapper">
+
+<!--    <resultMap id="LifePostResultMap" type="com.elec.alumnicycle.entity.LifePost">-->
+<!--        &lt;!&ndash; 定义 LifePost 表的列与实体属性的映射 &ndash;&gt;-->
+<!--        <id property="id" column="id"/>-->
+<!--        <result property="category" column="category"/>-->
+<!--        <result property="title" column="title"/>-->
+<!--        <result property="peopleEnrol" column="people_enrol"/>-->
+<!--        <result property="address" column="address"/>-->
+<!--        <result property="postTime" column="post_time"/>-->
+<!--        <result property="activityTime" column="activity_time"/>-->
+
+<!--    </resultMap>-->
+
+    <select id="getLifePostsByUserId" resultType="com.elec.alumnicycle.entity.LifePost" >
+
+        SELECT
+        *
+        FROM
+        life_post AS life_posts  <!-- 给 life_post 表添加别名 life_posts -->
+        LEFT JOIN
+        create_life_post ON create_life_post.life_post_id = life_posts.id
+        WHERE
+        create_life_post.user_id = #{userId}
+    </select>
+
+
+</mapper>
