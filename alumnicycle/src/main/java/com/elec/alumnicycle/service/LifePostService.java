@@ -27,5 +27,7 @@ public interface LifePostService extends IService<LifePost> {
 
     public AjaxRes<LifePost> enrolLifePost(Long lifePostId);
 
+    public AjaxRes<LifePost> unEnrolLifePost(Long lifePostId);
 
+    public boolean enrolStatusCheck(Long lifePostId);
 }

@@ -8,6 +8,7 @@ import com.elec.alumnicycle.common.BaseContext;
 import com.elec.alumnicycle.entity.CreateLifePost;
 import com.elec.alumnicycle.entity.Enrol;
 import com.elec.alumnicycle.entity.params.LifePostByIdParam;
+import com.elec.alumnicycle.mapper.EnrolMapper;
 import com.elec.alumnicycle.mapper.LifePostMapper;
 import com.elec.alumnicycle.entity.LifePost;
 import com.elec.alumnicycle.entity.params.LifePostParam;
@@ -74,13 +75,6 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
 
     @Override
     public AjaxRes<String> deleteLifePost(Long id) {
-        //get user id
-        Long userId = BaseContext.getCurrentId();
-
-        // for test only
-        userId = (long) 1;
-        String stringValueId = String.valueOf(userId);
-        log.info(stringValueId);
 
         //delete link table CreateForumPost row;
         LambdaQueryWrapper<CreateLifePost> lqw = new LambdaQueryWrapper<>();
@@ -140,7 +134,55 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
         return AjaxRes.success(lifePost);
     }
 
+    @Override
+    public AjaxRes<LifePost> unEnrolLifePost(Long lifePostId) {
+        // get current userID
+//        Long currentUserId = BaseContext.getCurrentId();
+        Long currentUserId = 99L;
 
+        //get lifepost
+        LambdaQueryWrapper<LifePost> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(LifePost::getId,lifePostId);
+        LifePost lifePost = this.getOne(lqw);
+
+        // decrease num of people enrol by 1
+        Long peopleEnrol = lifePost.getPeopleEnrol();
+        lifePost.setPeopleEnrol(peopleEnrol-1);
+        // save to LifePostService
+        this.updateById(lifePost);
+
+        // delete data in link table "enrol"
+        LambdaQueryWrapper<Enrol> lqw2 = new LambdaQueryWrapper<>();
+        lqw2.eq(Enrol::getLifePostId,lifePostId).eq(Enrol::getUserId,currentUserId);
+        enrolService.remove(lqw2);
+
+        return AjaxRes.success(lifePost);
+    }
+
+    @Override
+    public boolean enrolStatusCheck(Long lifePostId) {
+        // get current userID
+//        Long currentUserId = BaseContext.getCurrentId();
+        Long currentUserId = 99L;
+
+        // sql
+        LambdaQueryWrapper<Enrol> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(Enrol::getUserId, currentUserId);
+        lqw.eq(Enrol::getLifePostId, lifePostId);
+        int count = enrolService.count(lqw);
+        log.info(String.valueOf(count));
+
+        // return status
+        if (count > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
 
 
 }
+
+

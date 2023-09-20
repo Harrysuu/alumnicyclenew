@@ -86,4 +86,21 @@ public class LifePostController {
         return lifePostService.enrolLifePost(lifePostId);
     }
 
+    /***
+     *Unenrol a lifePost by userId
+     * @param lifePostId
+     * @return
+     */
+    @GetMapping("/unenrolById")
+    public AjaxRes<LifePost> unEnrolLifePost(Long lifePostId){
+
+        return lifePostService.unEnrolLifePost(lifePostId);
+    }
+
+    @GetMapping("/enrolCheck")
+    public boolean enrolStatusCheck(Long lifePostId){
+        return  lifePostService.enrolStatusCheck(lifePostId);
+    }
+
+
 }
