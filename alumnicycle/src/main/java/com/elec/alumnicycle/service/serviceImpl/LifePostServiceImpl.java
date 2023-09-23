@@ -82,8 +82,7 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
         createLifePostService.remove(lqw);
 
         // delete post by id
-         this.removeById(id);
-
+        this.removeById(id);
         return AjaxRes.success("The LifePost is deleted");
     }
 

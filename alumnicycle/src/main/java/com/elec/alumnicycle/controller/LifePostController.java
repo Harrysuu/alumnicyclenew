@@ -22,78 +22,40 @@ public class LifePostController {
     @Autowired
     private LifePostService lifePostService;
 
-    /**
-     * page search
-     * @param param
-     * @return
-     */
     @PostMapping("/page")
     @ApiOperation(value = "get posts according to page and category")
     public AjaxRes<Page<LifePost>> getPostByPage(@RequestBody LifePostParam param){
         return lifePostService.getPostBypage(param);
     }
 
-    /***
-     *add a new lifePost
-     * @param lifePost
-     * @return
-     */
     @PostMapping("/add")
     @ApiOperation(value = "add a new lifePost")
     public AjaxRes<String> addLifePost(@RequestBody LifePost lifePost){
         return lifePostService.addLifePost(lifePost);
     }
 
-    /***
-     *delete a lifePost by id
-     * @param id
-     * @return
-     */
     @GetMapping("/delete")
     public AjaxRes<String> deleteLifePost(Long id){
         return lifePostService.deleteLifePost(id);
     }
 
-    /***
-     * update lifepost
-     * @param lifePost
-     * @return
-     */
     @PostMapping("/update")
     public AjaxRes<LifePost> updateLifePost(@RequestBody LifePost lifePost){
         return lifePostService.updateLifePost(lifePost);
     }
 
-    /***
-     * getPostbyUserId
-     * @param param
-     * @return
-     */
     @GetMapping("/getbyUserId")
     public AjaxRes<Page<LifePost>> getPostbyUserId(LifePostByIdParam param){
         return lifePostService.getPostbyUserId(param);
-
     }
 
-    /***
-     *enrol a lifePost by userId
-     * @param lifePostId
-     * @return
-     */
     @GetMapping("/enrolById")
     public AjaxRes<LifePost> enrolLifePost(Long lifePostId){
-
         return lifePostService.enrolLifePost(lifePostId);
     }
 
-    /***
-     *Unenrol a lifePost by userId
-     * @param lifePostId
-     * @return
-     */
     @GetMapping("/unenrolById")
     public AjaxRes<LifePost> unEnrolLifePost(Long lifePostId){
-
         return lifePostService.unEnrolLifePost(lifePostId);
     }
 
@@ -102,5 +64,4 @@ public class LifePostController {
         return  lifePostService.enrolStatusCheck(lifePostId);
     }
 
-    
 }
