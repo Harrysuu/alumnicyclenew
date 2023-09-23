@@ -102,5 +102,5 @@ public class LifePostController {
         return  lifePostService.enrolStatusCheck(lifePostId);
     }
 
-
+    
 }
