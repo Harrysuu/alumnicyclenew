@@ -144,7 +144,7 @@ public class AjaxRes<T> implements Serializable {
     }
 
     public T getResult() {
-    	
+
         return this.result;
     }
 

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.entity.User;
 import com.elec.alumnicycle.entity.params.UserParam;
+import com.elec.alumnicycle.entity.params.UserPasswordParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,4 +30,6 @@ public interface UserService extends IService<User> {
     boolean uniqueUsername(String username);
 
     AjaxRes<User> addCredit(double point);
+
+    AjaxRes<User> changePassword(UserPasswordParam param);
 }

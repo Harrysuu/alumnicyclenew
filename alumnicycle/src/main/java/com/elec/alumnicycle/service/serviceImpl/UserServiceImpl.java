@@ -8,6 +8,7 @@ import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.common.BaseContext;
 import com.elec.alumnicycle.entity.User;
 import com.elec.alumnicycle.entity.params.UserParam;
+import com.elec.alumnicycle.entity.params.UserPasswordParam;
 import com.elec.alumnicycle.mapper.UserMapper;
 import com.elec.alumnicycle.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -173,6 +174,36 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // save and return
         this.updateById(currentUser);
         return AjaxRes.success(currentUser);
+    }
+
+    @Override
+    public AjaxRes<User> changePassword(UserPasswordParam param) {
+        // get id from BaseContext
+        Long currentId = BaseContext.getCurrentId();
+        currentId = 99L;
+
+        // get passwords from param
+        String oldPassword = param.getOldPassword();
+        String newPassword = param.getNewPassword();
+        oldPassword = DigestUtils.md5DigestAsHex(oldPassword.getBytes());
+
+        // query user in database
+        LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(User::getId, currentId);
+        User loginUser = this.getOne(lqw);
+
+        // check old password correct or not
+        if (! oldPassword.equals(loginUser.getPassword())){
+            return AjaxRes.failMsg("Wrong current password");
+        }
+
+        // set new password
+        loginUser.setPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
+
+        // update and return
+        this.updateById(loginUser);
+        return AjaxRes.success(loginUser);
+
     }
 
 

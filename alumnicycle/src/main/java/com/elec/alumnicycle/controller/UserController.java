@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.entity.User;
 import com.elec.alumnicycle.entity.params.UserParam;
+import com.elec.alumnicycle.entity.params.UserPasswordParam;
 import com.elec.alumnicycle.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -52,9 +53,9 @@ public class UserController {
         return userService.getUserById(userId);
     }
 
-    @GetMapping("/updateUser")
+    @PostMapping("/updateUser")
     @ApiOperation(value = "update user")
-    public AjaxRes<User> updateUser(User user){
+    public AjaxRes<User> updateUser(@RequestBody User user){
         return userService.updateUser(user);
     }
 
@@ -68,6 +69,12 @@ public class UserController {
     @ApiOperation(value = "add credit")
     public AjaxRes<User> addCredit(double point){
         return userService.addCredit(point);
+    }
+
+    @PostMapping ("/changePassword")
+    @ApiOperation(value = "change user password")
+    public AjaxRes<User> changePassword(@RequestBody UserPasswordParam param){
+        return userService.changePassword(param);
     }
 
 
