@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/announcement")
 @Slf4j
@@ -48,13 +50,16 @@ public class AnnouncementController {
     }
 
     @GetMapping("/getbyAdminId")
-    @ApiOperation(value = "get lifePost by userIds")
+    @ApiOperation(value = "get announcement by adminId")
     public AjaxRes<Page<Announcement>> getPostbyUserId(AnnouncementByIdParam param){
         return announcementService.getPostbyAdminId(param);
     }
 
-
-
+    @GetMapping("/getStared")
+    @ApiOperation(value = "get all stared announcements")
+    public AjaxRes<List<Announcement>> getStared(){
+        return announcementService.getStared();
+    }
 
 
 

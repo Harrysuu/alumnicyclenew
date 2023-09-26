@@ -7,6 +7,8 @@ import com.elec.alumnicycle.entity.Announcement;
 import com.elec.alumnicycle.entity.params.AnnouncementByIdParam;
 import com.elec.alumnicycle.entity.params.AnnouncementParam;
 
+import java.util.List;
+
 public interface AnnouncementService extends IService<Announcement> {
     AjaxRes<Page<Announcement>> getAnnouncementByPage(AnnouncementParam param);
 
@@ -17,4 +19,6 @@ public interface AnnouncementService extends IService<Announcement> {
     AjaxRes<Announcement> updateAnnouncement(Announcement announcement);
 
     AjaxRes<Page<Announcement>> getPostbyAdminId(AnnouncementByIdParam param);
+
+    AjaxRes<List<Announcement>> getStared();
 }

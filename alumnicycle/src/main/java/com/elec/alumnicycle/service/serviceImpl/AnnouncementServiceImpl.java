@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -58,6 +59,8 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
 
         // save to announcement
         this.save(announcement);
+        // star = 1: stared announcement; star = 0: normal announcement
+        log.info(String.valueOf(announcement.getStar()));
 
         //save to link table CreateAnnounce
         CreateAnnounce create = new CreateAnnounce();
@@ -99,4 +102,18 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
 
       return AjaxRes.success(page);
     }
+
+    @Override
+    public AjaxRes<List<Announcement>> getStared() {
+        List<Announcement> stared = new ArrayList<>();
+        LambdaQueryWrapper<Announcement> lqw = new LambdaQueryWrapper();
+        lqw.eq(Announcement::getStar, 1);
+        lqw.orderByDesc(Announcement::getPostTime);
+
+        stared = this.list(lqw);
+
+        return AjaxRes.success(stared);
+    }
+
+
 }
