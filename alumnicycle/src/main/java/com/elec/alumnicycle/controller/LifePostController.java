@@ -35,31 +35,37 @@ public class LifePostController {
     }
 
     @GetMapping("/delete")
+    @ApiOperation(value = "delete lifePost")
     public AjaxRes<String> deleteLifePost(Long id){
         return lifePostService.deleteLifePost(id);
     }
 
     @PostMapping("/update")
+    @ApiOperation(value = "update lifePost")
     public AjaxRes<LifePost> updateLifePost(@RequestBody LifePost lifePost){
         return lifePostService.updateLifePost(lifePost);
     }
 
     @GetMapping("/getbyUserId")
+    @ApiOperation(value = "get lifePost by userIds")
     public AjaxRes<Page<LifePost>> getPostbyUserId(LifePostByIdParam param){
         return lifePostService.getPostbyUserId(param);
     }
 
     @GetMapping("/enrolById")
+    @ApiOperation(value = "enrol lifePost")
     public AjaxRes<LifePost> enrolLifePost(Long lifePostId){
         return lifePostService.enrolLifePost(lifePostId);
     }
 
     @GetMapping("/unenrolById")
+    @ApiOperation(value = "unenrol lifePost")
     public AjaxRes<LifePost> unEnrolLifePost(Long lifePostId){
         return lifePostService.unEnrolLifePost(lifePostId);
     }
 
     @GetMapping("/enrolCheck")
+    @ApiOperation(value = "check enrolment of lifePost")
     public boolean enrolStatusCheck(Long lifePostId){
         return  lifePostService.enrolStatusCheck(lifePostId);
     }

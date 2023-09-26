@@ -55,7 +55,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         // set user id into Session
         Long userId = loginUser.getId();
-        request.getSession().setAttribute("user",userId);
+        request.getSession().setAttribute("User",userId);
 
         //set userId to BaseContext
         BaseContext.setCurrentId(userId);
@@ -64,7 +64,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return AjaxRes.success(loginUser);
 
 //        改进拦截器里
-//        Long userId = (Long) request.getSession().getAttribute("user");
+//        Long userId = (Long) request.getSession().getAttribute("User");
 //        Long currentUserId = BaseContext.getCurrentId();
 //        String stringValueId = String.valueOf(currentUserId);
 //        log.info(stringValueId);
@@ -74,11 +74,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public AjaxRes<String> logout(HttpServletRequest request) {
         request.getSession().removeAttribute("User");
-        return AjaxRes.success("Logout successfully");
+        return AjaxRes.success("User Logout successfully");
     }
 
     @Override
-    public AjaxRes<String> signup(HttpServletRequest request, User user) {
+    public AjaxRes<User> signup(HttpServletRequest request, User user) {
         //creat a unique Id
         long userId = IdWorker.getId();
 
@@ -89,12 +89,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setEditTime(LocalDateTime.now());
         user.setStatusInformation(1);
 
-        // set session
-        request.getSession().setAttribute("user",user.getId());
-
-        // save and return
+        // save
         this.save(user);
-        return AjaxRes.success("Sign up successfully");
+
+        // set session
+        request.getSession().setAttribute("User",user.getId());
+
+        // return
+        return AjaxRes.success(user);
     }
 
     @Override

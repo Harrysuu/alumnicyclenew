@@ -1,6 +1,7 @@
 package com.elec.alumnicycle.service.serviceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.elec.alumnicycle.common.AjaxRes;
@@ -54,12 +55,14 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
         Long userId = BaseContext.getCurrentId();
 
         // for test only
-        userId = (long) 1;
+        userId = (long) 99;
         String stringValueId = String.valueOf(userId);
         log.info( "test get user id"+String.valueOf(stringValueId));
 
         //set post time
         lifePost.setPostTime(LocalDateTime.now());
+        long id = IdWorker.getId();
+        lifePost.setId(id);
 
         // save to lifePost
         this.save(lifePost);

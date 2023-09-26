@@ -23,21 +23,21 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PutMapping("/login")
+    @PostMapping("/login")
     @ApiOperation(value = "user login")
     public AjaxRes<User> login(HttpServletRequest request, @RequestBody User user){
         return userService.login(request, user);
     }
 
-    @PutMapping("/logout")
+    @GetMapping("/logout")
     @ApiOperation(value = "user logout")
     public AjaxRes<String> logout(HttpServletRequest request){
         return userService.logout(request);
     }
 
-    @PutMapping("/signup")
+    @PostMapping("/signup")
     @ApiOperation(value = "signup a new user")
-    public AjaxRes<String> addNewUser(HttpServletRequest request, @RequestBody User user){
+    public AjaxRes<User> addNewUser(HttpServletRequest request, @RequestBody User user){
         return userService.signup(request, user);
     }
 

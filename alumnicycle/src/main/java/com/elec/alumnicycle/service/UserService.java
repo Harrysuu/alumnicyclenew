@@ -19,7 +19,7 @@ public interface UserService extends IService<User> {
 
     AjaxRes<String> logout(HttpServletRequest request);
 
-    AjaxRes<String> signup(HttpServletRequest request, User user);
+    AjaxRes<User> signup(HttpServletRequest request, User user);
 
     AjaxRes<Page<User>> getUserByPage(UserParam param);
 
