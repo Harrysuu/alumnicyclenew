@@ -32,4 +32,6 @@ public interface UserService extends IService<User> {
     AjaxRes<User> addCredit(double point);
 
     AjaxRes<User> changePassword(UserPasswordParam param);
+
+    AjaxRes<User> changeUserStatus(User user);
 }

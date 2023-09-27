@@ -23,6 +23,9 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/login")
     @ApiOperation(value = "admin login")
     public AjaxRes<Admin> login(HttpServletRequest request, @RequestBody Admin admin){
@@ -59,7 +62,11 @@ public class AdminController {
         return adminService.changePassword(param);
     }
 
-
+    @PostMapping ("/changeUserStatus")
+    @ApiOperation(value = "change user status")
+    public AjaxRes<User> changeUserStatus(@RequestBody User user){
+        return userService.changeUserStatus(user);
+    }
 
 
 

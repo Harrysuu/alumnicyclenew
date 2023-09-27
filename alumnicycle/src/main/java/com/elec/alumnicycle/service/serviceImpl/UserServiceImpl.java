@@ -208,5 +208,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     }
 
+    @Override
+    public AjaxRes<User> changeUserStatus(User user) {
+
+        LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(User::getId, user.getId());
+        User targetUser = this.getOne(lqw);
+
+        Integer currentStatusInformation = targetUser.getStatusInformation();
+
+        if (currentStatusInformation == 1){
+            targetUser.setStatusInformation(0);
+        }else if (currentStatusInformation == 0){
+            targetUser.setStatusInformation(1);
+        }
+
+        this.updateById(targetUser);
+
+        return AjaxRes.success(targetUser);
+    }
+
 
 }
