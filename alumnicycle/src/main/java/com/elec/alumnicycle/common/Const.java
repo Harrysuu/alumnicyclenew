@@ -21,17 +21,17 @@ public class Const {
     /**
      * 请求成功默认返回消息
      */
-    public static final String SUCCESS_MSG = "操作成功";
+    public static final String SUCCESS_MSG = "operate success";
     /**
      * 请求失败默认返回消息
      */
 //    public static final String FAIL_MSG = "操作失败";
-    public static final String FAIL_MSG = "网络不稳定，请检查网络环境或切换网络！";
+    public static final String FAIL_MSG = "Internet error";
     /**
      * 请求失败默认返回消息
      */
 //    public static final String APPLICATION_ERROR_MSG = "系统内部出错，请与管理员联系！";
-    public static final String APPLICATION_ERROR_MSG = "网络不稳定，请检查网络环境或切换网络！";
+    public static final String APPLICATION_ERROR_MSG = "Internet error";
     /**
      * 缓存超时时间
      */

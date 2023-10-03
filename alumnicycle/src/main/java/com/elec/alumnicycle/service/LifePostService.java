@@ -15,7 +15,7 @@ import java.util.List;
 
 public interface LifePostService extends IService<LifePost> {
 
-    public AjaxRes<Page<LifePost>> getPostBypage(LifePostParam param);
+    public AjaxRes<Page<LifePost>> getPostByPage(LifePostParam param);
 
     public AjaxRes<String> addLifePost(LifePost lifePost);
 

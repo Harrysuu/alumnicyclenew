@@ -1,7 +1,6 @@
 package com.elec.alumnicycle.service.serviceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.elec.alumnicycle.common.AjaxRes;
@@ -39,7 +38,7 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
     EnrolService enrolService;
 
     @Override
-    public AjaxRes<Page<LifePost>> getPostBypage(LifePostParam param) {
+    public AjaxRes<Page<LifePost>> getPostByPage(LifePostParam param) {
         LambdaQueryWrapper<LifePost> lqw = new LambdaQueryWrapper<>();
         lqw.eq(param.getCategory() != 0,LifePost::getCategory,param.getCategory())
                 .orderByDesc(LifePost::getPostTime);
@@ -55,14 +54,12 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
         Long userId = BaseContext.getCurrentId();
 
         // for test only
-        userId = (long) 99;
+        userId = (long) 1;
         String stringValueId = String.valueOf(userId);
         log.info( "test get user id"+String.valueOf(stringValueId));
 
         //set post time
         lifePost.setPostTime(LocalDateTime.now());
-        long id = IdWorker.getId();
-        lifePost.setId(id);
 
         // save to lifePost
         this.save(lifePost);
@@ -85,7 +82,8 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
         createLifePostService.remove(lqw);
 
         // delete post by id
-        this.removeById(id);
+         this.removeById(id);
+
         return AjaxRes.success("The LifePost is deleted");
     }
 

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/lifePost")
 @Slf4j
-@Api(tags = "生活帖子页面")
+@Api(tags = "Life post page")
 public class LifePostController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class LifePostController {
     @PostMapping("/page")
     @ApiOperation(value = "get posts according to page and category")
     public AjaxRes<Page<LifePost>> getPostByPage(@RequestBody LifePostParam param){
-        return lifePostService.getPostBypage(param);
+        return lifePostService.getPostByPage(param);
     }
 
     @PostMapping("/add")
