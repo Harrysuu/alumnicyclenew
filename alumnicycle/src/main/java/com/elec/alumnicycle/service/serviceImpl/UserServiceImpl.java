@@ -1,6 +1,7 @@
 package com.elec.alumnicycle.service.serviceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -209,10 +210,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public AjaxRes<User> changeUserStatus(User user) {
+    public AjaxRes<String> changeUserStatus(Long userId) {
 
         LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(User::getId, user.getId());
+        lqw.eq(User::getId, userId);
         User targetUser = this.getOne(lqw);
 
         Integer currentStatusInformation = targetUser.getStatusInformation();
@@ -225,7 +226,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         this.updateById(targetUser);
 
-        return AjaxRes.success(targetUser);
+        return AjaxRes.success();
     }
 
 

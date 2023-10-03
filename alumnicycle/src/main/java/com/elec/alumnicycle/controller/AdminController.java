@@ -62,13 +62,11 @@ public class AdminController {
         return adminService.changePassword(param);
     }
 
-    @PostMapping ("/changeUserStatus")
+    @GetMapping ("/changeUserStatus")
     @ApiOperation(value = "change user status")
-    public AjaxRes<User> changeUserStatus(@RequestBody User user){
-        return userService.changeUserStatus(user);
+    public AjaxRes<String> changeUserStatus(Long userId){
+        return userService.changeUserStatus(userId);
     }
-
-
 
 
 }

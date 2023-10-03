@@ -33,5 +33,5 @@ public interface UserService extends IService<User> {
 
     AjaxRes<User> changePassword(UserPasswordParam param);
 
-    AjaxRes<User> changeUserStatus(User user);
+    AjaxRes<String> changeUserStatus(Long userId);
 }
