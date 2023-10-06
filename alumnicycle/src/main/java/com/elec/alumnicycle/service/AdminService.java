@@ -20,4 +20,6 @@ public interface AdminService extends IService<Admin> {
     boolean uniqueUsername(String username);
 
     AjaxRes<Admin> changePassword(UserPasswordParam param);
+
+    AjaxRes<String> changeAdminStatus(Long adminId,HttpServletRequest request);
 }

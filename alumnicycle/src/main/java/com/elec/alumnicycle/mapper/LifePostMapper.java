@@ -12,5 +12,4 @@ import java.util.List;
 @Repository
 public interface LifePostMapper extends BaseMapper<LifePost> {
     List<LifePost> getLifePostsByUserId(@Param("userId") Long userId);
-
 }

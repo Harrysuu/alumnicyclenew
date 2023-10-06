@@ -1,6 +1,7 @@
 package com.elec.alumnicycle.service.serviceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.elec.alumnicycle.common.AjaxRes;
@@ -151,6 +152,30 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         // update and return
         this.updateById(loginAdmin);
         return AjaxRes.success(loginAdmin);
+    }
+
+    @Override
+    public AjaxRes<String> changeAdminStatus(Long adminId,HttpServletRequest request) {
+        Admin adminTarget = this.getById(adminId);
+        Long loginId = (Long) request.getSession().getAttribute("Admin");
+        Admin adminPresent = this.getById(loginId);
+        LambdaUpdateWrapper<Admin> luw = new LambdaUpdateWrapper<>();
+        if(adminPresent.getGrade() < adminTarget.getGrade()){
+            return AjaxRes.failMsg("Unable to change the administrator status above current account level");
+        }else {
+            if(adminTarget.getStatus() == 0){
+                luw.eq(Admin::getId,adminId)
+                        .set(Admin::getStatus,1)
+                        .set(Admin::getOperationTime,LocalDateTime.now());
+                this.update(luw);
+            }else {
+                luw.eq(Admin::getId,adminId)
+                        .set(Admin::getStatus,0)
+                        .set(Admin::getOperationTime,LocalDateTime.now());
+                this.update(luw);
+            }
+            return AjaxRes.success("change has been made");
+        }
     }
 
 

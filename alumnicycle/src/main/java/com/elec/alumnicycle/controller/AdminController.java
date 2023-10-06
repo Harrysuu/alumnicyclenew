@@ -68,5 +68,10 @@ public class AdminController {
         return userService.changeUserStatus(userId);
     }
 
+    @GetMapping("/editAdminStatus")
+    @ApiOperation(value = "change admin status")
+    public AjaxRes<String> changeAdminStatus(Long adminId,HttpServletRequest request){
+        return adminService.changeAdminStatus(adminId,request);
+    }
 
 }
