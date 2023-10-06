@@ -43,4 +43,7 @@ public class User {
     @ApiModelProperty(value = "edit time")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime editTime;
+
+    @ApiModelProperty(value = "picture address")
+    private String picture;
 }

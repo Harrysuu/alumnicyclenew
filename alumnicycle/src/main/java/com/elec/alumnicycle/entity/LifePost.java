@@ -36,4 +36,7 @@ public class LifePost {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime activityTime;
 
+    @ApiModelProperty(value = "picture address")
+    private String picture;
+
 }
