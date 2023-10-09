@@ -9,9 +9,9 @@
         SELECT
         *
         FROM
-        life_post AS a  <!-- give life_post alias life_posts -->
+        life_post a  <!-- give life_post alias life_posts -->
         LEFT JOIN
-        create_life_post AS b ON b.life_post_id = a.id
+        create_life_post b ON b.life_post_id = a.id
         WHERE
         b.user_id = #{userId}
     </select>
