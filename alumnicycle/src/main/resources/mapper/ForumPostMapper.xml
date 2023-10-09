@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.elec.alumnicycle.mapper.ForumPostMapper">
+
+    <select id="getForumPostsByUserId" resultType="com.elec.alumnicycle.entity.ForumPost" >
+
+        SELECT
+        *
+        FROM
+        forum_post AS forum_posts
+        LEFT JOIN
+        create_forum_post ON create_forum_post.forum_forum_id = forum_posts.id
+        WHERE
+        create_forum_post.user_id = #{userId}
+    </select>
+
+</mapper>
