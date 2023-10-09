@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -49,10 +50,10 @@ public class AnnouncementController {
         return announcementService.updateAnnouncement(announcement);
     }
 
-    @GetMapping("/getByAdminId")
+    @PostMapping("/getByAdminId")
     @ApiOperation(value = "get announcement by adminId")
-    public AjaxRes<Page<Announcement>> getPostbyUserId(AnnouncementByIdParam param){
-        return announcementService.getPostbyAdminId(param);
+    public AjaxRes<Page<Announcement>> getPostByUserId(@RequestBody AnnouncementByIdParam param){
+        return announcementService.getPostByAdminId(param);
     }
 
     @GetMapping("/getStared")
@@ -61,10 +62,10 @@ public class AnnouncementController {
         return announcementService.getStared();
     }
 
-    @GetMapping("/getAnnouncementbyId")
+    @GetMapping("/getAnnouncementById")
     @ApiOperation(value = "get by announcementID")
-    public AjaxRes<Announcement> getAnnouncementbyId(Long id){
-        return announcementService.getAnnouncementbyId(id);
+    public AjaxRes<Announcement> getAnnouncementById(Long id){
+        return announcementService.getAnnouncementById(id);
     }
 
 }

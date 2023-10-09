@@ -47,10 +47,10 @@ public class LifePostController {
         return lifePostService.updateLifePost(lifePost);
     }
 
-    @GetMapping("/getByUserId")
+    @PostMapping ("/getByUserId")
     @ApiOperation(value = "get lifePost by userIds")
-    public AjaxRes<Page<LifePost>> getPostbyUserId(LifePostByIdParam param){
-        return lifePostService.getPostbyUserId(param);
+    public AjaxRes<Page<LifePost>> getPostByUserId(@RequestBody LifePostByIdParam param){
+        return lifePostService.getPostByUserId(param);
     }
 
     @GetMapping("/enrolById")
@@ -59,8 +59,8 @@ public class LifePostController {
         return lifePostService.enrolLifePost(lifePostId);
     }
 
-    @GetMapping("/unenrolById")
-    @ApiOperation(value = "unenrol lifePost")
+    @GetMapping("/cancelEnrolById")
+    @ApiOperation(value = "Cancel enrol lifePost")
     public AjaxRes<LifePost> unEnrolLifePost(Long lifePostId){
         return lifePostService.unEnrolLifePost(lifePostId);
     }
@@ -71,10 +71,10 @@ public class LifePostController {
         return  lifePostService.enrolStatusCheck(lifePostId);
     }
 
-    @GetMapping("/getPostbyId")
+    @GetMapping("/getPostById")
     @ApiOperation(value = "get by PostID")
-    public AjaxRes<LifePost> getPostbyId(Long id){
-        return lifePostService.getPostbyId(id);
+    public AjaxRes<LifePost> getPostById(Long id){
+        return lifePostService.getPostById(id);
     }
 
 }

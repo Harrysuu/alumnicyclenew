@@ -38,7 +38,7 @@ public class UserController {
     @PostMapping("/signup")
     @ApiOperation(value = "signup a new user")
     public AjaxRes<User> addNewUser(HttpServletRequest request, @RequestBody User user){
-        return userService.signup(request, user);
+        return userService.signup(request,user);
     }
 
     @PostMapping("/page")
@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @GetMapping("/uniqueUsernameCheck")
-    @ApiOperation(value = "check uniquness of the username")
+    @ApiOperation(value = "check whether the username is unique")
     public boolean uniqueUsername(String username){
         return userService.uniqueUsername(username);
     }
@@ -76,8 +76,5 @@ public class UserController {
     public AjaxRes<User> changePassword(@RequestBody UserPasswordParam param){
         return userService.changePassword(param);
     }
-
-
-
 
 }

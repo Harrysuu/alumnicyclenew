@@ -6,15 +6,14 @@
 <mapper namespace="com.elec.alumnicycle.mapper.LifePostMapper">
 
     <select id="getLifePostsByUserId" resultType="com.elec.alumnicycle.entity.LifePost" >
-
         SELECT
         *
         FROM
-        life_post AS life_posts  <!-- give life_post alias life_posts -->
+        life_post AS a  <!-- give life_post alias life_posts -->
         LEFT JOIN
-        create_life_post ON create_life_post.life_post_id = life_posts.id
+        create_life_post AS b ON b.life_post_id = a.id
         WHERE
-        create_life_post.user_id = #{userId}
+        b.user_id = #{userId}
     </select>
 
 </mapper>

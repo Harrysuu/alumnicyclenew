@@ -1,6 +1,7 @@
 package com.elec.alumnicycle.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.elec.alumnicycle.entity.Announcement;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
@@ -12,5 +13,6 @@ import java.util.List;
 @Repository
 public interface AnnouncementMapper extends BaseMapper<Announcement> {
 
-    List<Announcement> getAnnouncementByAdminId(@Param("adminId") Long adminId);
+    Page<Announcement> getAnnouncementByAdminId(@Param("page") Page page,@Param("adminId") Long adminId);
+
 }
