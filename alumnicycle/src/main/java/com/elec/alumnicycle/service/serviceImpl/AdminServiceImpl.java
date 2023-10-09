@@ -19,6 +19,8 @@ import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @Slf4j
@@ -76,8 +78,20 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         // create unique id
         long adminId = IdWorker.getId();
 
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=.*[a-zA-Z0-9@#$%^&+=!]).{8,}$";
+        String password = admin.getPassword();
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+        if (!matcher.matches() || password.length() < 8){
+            return AjaxRes.failMsg("password does not meet the requirement");
+        }
+
+        LambdaQueryWrapper<Admin> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(Admin::getId,admin.getId());
+        if (count(lqw) > 0){
+            return AjaxRes.failMsg("username is already exist");
+        }
         // set attributes to admin
-        admin.setId(adminId);
         admin.setPassword(DigestUtils.md5DigestAsHex(admin.getPassword().getBytes()));
         admin.setOperationTime(LocalDateTime.now());
         admin.setStatus(1);

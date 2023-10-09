@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.common.BaseContext;
+import com.elec.alumnicycle.entity.Admin;
 import com.elec.alumnicycle.entity.User;
 import com.elec.alumnicycle.entity.params.UserParam;
 import com.elec.alumnicycle.entity.params.UserPasswordParam;
@@ -18,6 +19,8 @@ import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @Slf4j
@@ -80,12 +83,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public AjaxRes<User> signup(HttpServletRequest request, User user) {
-        //creat a unique Id
-        long userId = IdWorker.getId();
+
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=.*[a-zA-Z0-9@#$%^&+=!]).{8,}$";
+        String password = user.getPassword();
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+        if (!matcher.matches() || password.length() < 8){
+            return AjaxRes.failMsg("password does not meet the requirement");
+        }
+
+        LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(User::getId,user.getId());
+        if (count(lqw) > 0){
+            return AjaxRes.failMsg("username is already exist");
+        }
 
         // set attributes to user
         user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
-        user.setId(userId);
         user.setCreateTime(LocalDateTime.now());
         user.setEditTime(LocalDateTime.now());
         user.setStatusInformation(1);

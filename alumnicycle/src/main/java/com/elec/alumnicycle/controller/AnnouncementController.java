@@ -49,7 +49,7 @@ public class AnnouncementController {
         return announcementService.updateAnnouncement(announcement);
     }
 
-    @GetMapping("/getbyAdminId")
+    @GetMapping("/getByAdminId")
     @ApiOperation(value = "get announcement by adminId")
     public AjaxRes<Page<Announcement>> getPostbyUserId(AnnouncementByIdParam param){
         return announcementService.getPostbyAdminId(param);
@@ -60,7 +60,6 @@ public class AnnouncementController {
     public AjaxRes<List<Announcement>> getStared(){
         return announcementService.getStared();
     }
-
 
 
 

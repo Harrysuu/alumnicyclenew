@@ -46,7 +46,7 @@ public class LifePostController {
         return lifePostService.updateLifePost(lifePost);
     }
 
-    @GetMapping("/getbyUserId")
+    @GetMapping("/getByUserId")
     @ApiOperation(value = "get lifePost by userIds")
     public AjaxRes<Page<LifePost>> getPostbyUserId(LifePostByIdParam param){
         return lifePostService.getPostbyUserId(param);
