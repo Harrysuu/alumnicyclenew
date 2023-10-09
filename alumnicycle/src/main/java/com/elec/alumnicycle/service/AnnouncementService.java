@@ -21,4 +21,6 @@ public interface AnnouncementService extends IService<Announcement> {
     AjaxRes<Page<Announcement>> getPostbyAdminId(AnnouncementByIdParam param);
 
     AjaxRes<List<Announcement>> getStared();
+
+    AjaxRes<Announcement> getAnnouncementbyId(Long id);
 }

@@ -3,6 +3,7 @@ package com.elec.alumnicycle.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.elec.alumnicycle.common.AjaxRes;
+import com.elec.alumnicycle.entity.Announcement;
 import com.elec.alumnicycle.entity.LifePost;
 import com.elec.alumnicycle.entity.params.LifePostByIdParam;
 import com.elec.alumnicycle.entity.params.LifePostParam;
@@ -68,6 +69,12 @@ public class LifePostController {
     @ApiOperation(value = "check enrolment of lifePost")
     public boolean enrolStatusCheck(Long lifePostId){
         return  lifePostService.enrolStatusCheck(lifePostId);
+    }
+
+    @GetMapping("/getPostbyId")
+    @ApiOperation(value = "get by PostID")
+    public AjaxRes<LifePost> getPostbyId(Long id){
+        return lifePostService.getPostbyId(id);
     }
 
 }

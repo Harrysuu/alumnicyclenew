@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.common.BaseContext;
+import com.elec.alumnicycle.entity.Announcement;
 import com.elec.alumnicycle.entity.CreateLifePost;
 import com.elec.alumnicycle.entity.Enrol;
 import com.elec.alumnicycle.entity.params.LifePostByIdParam;
@@ -180,6 +181,15 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
             return false;
         }
 
+    }
+
+    @Override
+    public AjaxRes<LifePost> getPostbyId(Long id) {
+        LambdaQueryWrapper<LifePost> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(LifePost::getId, id);
+
+        LifePost lifePost = this.getOne(lqw);
+        return AjaxRes.success(lifePost);
     }
 
 

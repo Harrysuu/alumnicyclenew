@@ -112,8 +112,19 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
 
         stared = this.list(lqw);
 
+        if(stared.size() >3){
+            stared = stared.subList(0,3);
+        }
         return AjaxRes.success(stared);
     }
 
+    @Override
+    public AjaxRes<Announcement> getAnnouncementbyId(Long id) {
+        LambdaQueryWrapper<Announcement> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(Announcement::getId, id);
+
+        Announcement announcement = this.getOne(lqw);
+        return AjaxRes.success(announcement);
+    }
 
 }

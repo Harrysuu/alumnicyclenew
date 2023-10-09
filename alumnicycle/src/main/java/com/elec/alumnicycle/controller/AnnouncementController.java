@@ -61,6 +61,10 @@ public class AnnouncementController {
         return announcementService.getStared();
     }
 
-
+    @GetMapping("/getAnnouncementbyId")
+    @ApiOperation(value = "get by announcementID")
+    public AjaxRes<Announcement> getAnnouncementbyId(Long id){
+        return announcementService.getAnnouncementbyId(id);
+    }
 
 }
