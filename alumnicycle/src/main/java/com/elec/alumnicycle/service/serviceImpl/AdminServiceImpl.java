@@ -181,13 +181,12 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
                 luw.eq(Admin::getId,adminId)
                         .set(Admin::getStatus,1)
                         .set(Admin::getOperationTime,LocalDateTime.now());
-                this.update(luw);
             }else {
                 luw.eq(Admin::getId,adminId)
                         .set(Admin::getStatus,0)
                         .set(Admin::getOperationTime,LocalDateTime.now());
-                this.update(luw);
             }
+            this.update(luw);
             return AjaxRes.success("change has been made");
         }
     }

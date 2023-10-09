@@ -1,6 +1,7 @@
 package com.elec.alumnicycle.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.elec.alumnicycle.entity.LifePost;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
@@ -11,5 +12,6 @@ import java.util.List;
 @Mapper
 @Repository
 public interface LifePostMapper extends BaseMapper<LifePost> {
-    List<LifePost> getLifePostsByUserId(@Param("userId") Long userId);
+
+    Page<LifePost> getLifePostsByUserId(@Param("page") Page page, @Param("userId") Long userId);
 }

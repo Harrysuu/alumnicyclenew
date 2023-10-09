@@ -1,5 +1,7 @@
 package com.elec.alumnicycle.entity.params;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.elec.alumnicycle.entity.Announcement;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -11,10 +13,7 @@ public class AnnouncementByIdParam {
     @ApiModelProperty(value = "adminId")
     private Long adminId;
 
-    @ApiModelProperty(value = "page")
-    private Integer page;
-
-    @ApiModelProperty(value = "pageSize")
-    private Integer pageSize;
+    @ApiModelProperty(value = "page",required = true)
+    private Page page;
 
 }

@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +32,6 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
 
     @Autowired
     CreateAnnounceService createAnnounceService;
-
-    @Autowired
-    AnnouncementMapper announcementMapper;
 
     @Override
     public AjaxRes<Page<Announcement>> getAnnouncementByPage(AnnouncementParam param) {
@@ -53,8 +51,6 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
         adminId = 99L;
 
         //set post time and Id
-        long id = IdWorker.getId();
-        announcement.setId(id);
         announcement.setPostTime(LocalDateTime.now());
 
         // save to announcement
@@ -88,29 +84,23 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
     @Override
     public AjaxRes<Announcement> updateAnnouncement(Announcement announcement) {
         announcement.setPostTime(LocalDateTime.now());
-
         this.updateById(announcement);
         return AjaxRes.success(announcement);
     }
 
     @Override
-    public AjaxRes<Page<Announcement>> getPostbyAdminId(AnnouncementByIdParam param) {
-      List<Announcement> announcements = announcementMapper.getAnnouncementByAdminId(param.getAdminId());
-
-      Page<Announcement> page = new Page<>(param.getPage(), param.getPageSize());
-      page.setRecords(announcements);
-
-      return AjaxRes.success(page);
+    public AjaxRes<Page<Announcement>> getPostByAdminId(AnnouncementByIdParam param) {
+        Page<Announcement> announcements = this.getBaseMapper().getAnnouncementByAdminId(param.getPage(),param.getAdminId());
+        return AjaxRes.success(announcements);
     }
 
     @Override
     public AjaxRes<List<Announcement>> getStared() {
-        List<Announcement> stared = new ArrayList<>();
-        LambdaQueryWrapper<Announcement> lqw = new LambdaQueryWrapper();
+        LambdaQueryWrapper<Announcement> lqw = new LambdaQueryWrapper<>();
         lqw.eq(Announcement::getStar, 1);
         lqw.orderByDesc(Announcement::getPostTime);
 
-        stared = this.list(lqw);
+        List<Announcement> stared = this.list(lqw);
 
         if(stared.size() >3){
             stared = stared.subList(0,3);
@@ -119,7 +109,7 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
     }
 
     @Override
-    public AjaxRes<Announcement> getAnnouncementbyId(Long id) {
+    public AjaxRes<Announcement> getAnnouncementById(Long id) {
         LambdaQueryWrapper<Announcement> lqw = new LambdaQueryWrapper<>();
         lqw.eq(Announcement::getId, id);
 

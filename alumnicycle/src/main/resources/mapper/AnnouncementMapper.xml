@@ -6,15 +6,14 @@
 <mapper namespace="com.elec.alumnicycle.mapper.AnnouncementMapper">
 
     <select id="getAnnouncementByAdminId" resultType="com.elec.alumnicycle.entity.Announcement" >
-
         SELECT
         *
         FROM
-        announcement AS announcements  <!-- give life_post alias life_posts -->
+        announcement a  <!-- give life_post alias life_posts -->
         LEFT JOIN
-        create_announce ON create_announce.announcement_id = announcements.id
+        create_announce b ON b.announcement_id = a.id
         WHERE
-        create_announce.admin_id = #{adminId}
+        b.admin_id = #{adminId}
     </select>
 
 </mapper>

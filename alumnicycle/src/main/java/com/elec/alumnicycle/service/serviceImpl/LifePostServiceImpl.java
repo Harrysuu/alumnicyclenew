@@ -28,10 +28,6 @@ import java.util.List;
 @Slf4j
 public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> implements LifePostService {
 
-
-    @Autowired
-    LifePostMapper lifePostMapper;
-
     @Autowired
     CreateLifePostService createLifePostService;
 
@@ -98,15 +94,8 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
     }
 
     @Override
-    public AjaxRes<Page<LifePost>> getPostbyUserId(LifePostByIdParam param) {
-
-        List<LifePost> lifePosts = lifePostMapper.getLifePostsByUserId(param.getUserId());
-
-        Page<LifePost> page = new Page<>(param.getPage(), param.getPageSize());
-        page.setRecords(lifePosts);
-
-        return AjaxRes.success(page);
-
+    public AjaxRes<Page<LifePost>> getPostByUserId(LifePostByIdParam param) {
+        return AjaxRes.success(this.getBaseMapper().getLifePostsByUserId(param.getPage(),param.getUserId()));
     }
 
     @Override
@@ -184,7 +173,7 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
     }
 
     @Override
-    public AjaxRes<LifePost> getPostbyId(Long id) {
+    public AjaxRes<LifePost> getPostById(Long id) {
         LambdaQueryWrapper<LifePost> lqw = new LambdaQueryWrapper<>();
         lqw.eq(LifePost::getId, id);
 

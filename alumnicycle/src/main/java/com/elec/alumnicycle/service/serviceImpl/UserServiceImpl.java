@@ -166,12 +166,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         lqw.eq(User::getUsername, username);
         int count = this.count(lqw);
 
-        if (count != 0){
-            // username already exists
-            return false;
-        }
+        // username already exists
+        return count == 0;
         // username not exist
-        return true;
     }
 
     @Override
