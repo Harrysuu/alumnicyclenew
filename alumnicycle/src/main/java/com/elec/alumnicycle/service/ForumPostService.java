@@ -26,5 +26,6 @@ public interface ForumPostService extends IService<ForumPost> {
 
     public AjaxRes<ForumPost> updateForumPost(ForumPost forumPost);
 
-    public AjaxRes<Page<ForumPost>> getPostbyUserId(ForumPostByIdParam param);
+    public AjaxRes<Page<ForumPost>> getPostByUserId(ForumPostByIdParam param);
+
 }

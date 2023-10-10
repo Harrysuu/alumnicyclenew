@@ -1,6 +1,7 @@
 package com.elec.alumnicycle.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.elec.alumnicycle.entity.ForumPost;
 import com.elec.alumnicycle.entity.LifePost;
 import org.apache.ibatis.annotations.Param;
@@ -12,5 +13,5 @@ import java.util.List;
 @Mapper
 @Repository
 public interface ForumPostMapper extends BaseMapper<ForumPost>{
-    List<ForumPost> getForumPostsByUserId(@Param("userId") Long userId);
+    Page<ForumPost> getForumPostsByUserId(@Param("page") Page page, @Param("userId") Long userId);
 }

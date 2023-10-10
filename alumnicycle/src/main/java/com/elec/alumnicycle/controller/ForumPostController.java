@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.entity.Announcement;
 import com.elec.alumnicycle.entity.ForumPost;
+import com.elec.alumnicycle.entity.LifePost;
 import com.elec.alumnicycle.entity.params.ForumPostByIdParam;
 import com.elec.alumnicycle.entity.params.ForumPostParam;
+import com.elec.alumnicycle.entity.params.LifePostByIdParam;
 import com.elec.alumnicycle.service.ForumPostService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,6 +39,12 @@ public class ForumPostController {
     @ApiOperation(value = "delete forumPost")
     public AjaxRes<String> deleteForumPost(Long id){
         return forumPostService.deleteForumPost(id);
+    }
+
+    @PostMapping ("/getByUserId")
+    @ApiOperation(value = "get forumPost by userIds")
+    public AjaxRes<Page<ForumPost>> getPostByUserId(@RequestBody ForumPostByIdParam param){
+        return forumPostService.getPostByUserId(param);
     }
 
 }

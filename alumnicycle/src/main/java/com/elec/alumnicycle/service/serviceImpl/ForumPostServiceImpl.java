@@ -8,18 +8,12 @@ import com.elec.alumnicycle.common.BaseContext;
 import com.elec.alumnicycle.entity.*;
 import com.elec.alumnicycle.entity.params.ForumPostByIdParam;
 import com.elec.alumnicycle.entity.params.ForumPostParam;
-import com.elec.alumnicycle.entity.params.LifePostByIdParam;
-import com.elec.alumnicycle.mapper.EnrolMapper;
 import com.elec.alumnicycle.mapper.ForumPostMapper;
-import com.elec.alumnicycle.mapper.LifePostMapper;
-import com.elec.alumnicycle.entity.params.LifePostParam;
 import com.elec.alumnicycle.service.*;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @Slf4j
@@ -85,7 +79,7 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
     }
 
     @Override
-    public AjaxRes<Page<ForumPost>> getPostbyUserId(ForumPostByIdParam param) {
-        return null;
+    public AjaxRes<Page<ForumPost>> getPostByUserId(ForumPostByIdParam param) {
+        return AjaxRes.success(this.getBaseMapper().getForumPostsByUserId(param.getPage(),param.getUserId()));
     }
 }

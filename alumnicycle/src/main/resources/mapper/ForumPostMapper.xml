@@ -6,15 +6,14 @@
 <mapper namespace="com.elec.alumnicycle.mapper.ForumPostMapper">
 
     <select id="getForumPostsByUserId" resultType="com.elec.alumnicycle.entity.ForumPost" >
-
         SELECT
         *
         FROM
-        forum_post AS forum_posts
+        forum_post a
         LEFT JOIN
-        create_forum_post ON create_forum_post.forum_forum_id = forum_posts.id
+        create_forum_post b ON b.post_id = a.id
         WHERE
-        create_forum_post.user_id = #{userId}
+        b.user_id = #{userId}
     </select>
 
 </mapper>
