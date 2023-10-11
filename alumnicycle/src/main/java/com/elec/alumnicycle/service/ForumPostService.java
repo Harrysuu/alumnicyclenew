@@ -28,4 +28,6 @@ public interface ForumPostService extends IService<ForumPost> {
 
     public AjaxRes<Page<ForumPost>> getPostByUserId(ForumPostByIdParam param);
 
+    public AjaxRes<ForumPost> addComment(Long forumPostId, String comment);
+
 }

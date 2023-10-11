@@ -11,6 +11,9 @@ public class ForumPostParam {
     @ApiModelProperty(value = "category")
     private Integer category;
 
+    @ApiModelProperty(value = "college")
+    private Integer college;
+
     @ApiModelProperty(value = "page")
     private Integer page;
 

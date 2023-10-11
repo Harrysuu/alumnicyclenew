@@ -25,10 +25,15 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
     @Autowired
     CreateForumPostService createForumPostService;
 
+    @Autowired
+    CommentService commentService;
+
     @Override
     public AjaxRes<Page<ForumPost>> getPostByPage(ForumPostParam param) {
         LambdaQueryWrapper<ForumPost> lqw = new LambdaQueryWrapper<>();
         lqw.eq(param.getCategory() != 0,ForumPost::getCategory,param.getCategory())
+                .orderByDesc(ForumPost::getPostTime);
+        lqw.eq(param.getCollege() != 0,ForumPost::getCollege,param.getCollege())
                 .orderByDesc(ForumPost::getPostTime);
         Page<ForumPost> pageInfo = new Page<>(param.getPage(), param.getPageSize());
         this.page(pageInfo,lqw);
@@ -81,5 +86,29 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
     @Override
     public AjaxRes<Page<ForumPost>> getPostByUserId(ForumPostByIdParam param) {
         return AjaxRes.success(this.getBaseMapper().getForumPostsByUserId(param.getPage(),param.getUserId()));
+    }
+
+    @Override
+    public AjaxRes<ForumPost> addComment(Long forumPostId, String comment) {
+        // get current userID
+//        Long currentUserId = BaseContext.getCurrentId();
+        Long currentUserId = 99L;
+
+        Comment newComment = new Comment();
+        newComment.setUserId(currentUserId);
+        newComment.setForumPostId(forumPostId);
+        newComment.setComment(comment);
+
+        commentService.save(newComment);
+
+
+        //get post
+        LambdaQueryWrapper<ForumPost> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(ForumPost::getId,forumPostId);
+        ForumPost forumPost = this.getOne(lqw);
+
+        return AjaxRes.success(forumPost);
+
+
     }
 }
