@@ -33,7 +33,7 @@ public class CommonController {
     private String basePath;
 
     @PostMapping("/upload")
-    @ApiOperation(value = "上传图片")
+    @ApiOperation(value = "upload image")
     public AjaxRes<String> upload(MultipartFile file){  //参数名需和前端生成保持一致,file为临时文件
 
 //        使用UUID重新生成文件名防止重复覆盖
@@ -61,7 +61,7 @@ public class CommonController {
     }
 
     @GetMapping("/download")
-    @ApiOperation(value = "下载图片")
+    @ApiOperation(value = "download image")
     public void download(String name, HttpServletResponse response){
 
         try {
@@ -72,7 +72,7 @@ public class CommonController {
 
 //            固定文件类型
             response.setContentType("image/jpeg");
-            byte[] bytes = new byte[1024];
+            byte[] bytes = new byte[10240];
             int len;
 //            读取文件，按字节
             while ((len = fileInputStream.read(bytes)) != -1){
