@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 @ApiModel(description = "Create_Life_Post entity")
 public class CreateLifePost {
+
     @ApiModelProperty(value = "Create_Life_Post id")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;

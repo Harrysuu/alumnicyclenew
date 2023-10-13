@@ -14,6 +14,7 @@ public class CreateAnnounce {
     private Long id;
 
     @ApiModelProperty(value = "admin id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long adminId;
 
     @ApiModelProperty(value = "announce id")

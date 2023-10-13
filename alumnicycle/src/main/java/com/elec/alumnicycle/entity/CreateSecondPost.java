@@ -14,8 +14,10 @@ public class CreateSecondPost {
     private Long id;
 
     @ApiModelProperty(value = "second post id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long secondPostId;
 
     @ApiModelProperty(value = "user id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long userId;
 }

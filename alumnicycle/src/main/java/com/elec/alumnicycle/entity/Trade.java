@@ -11,17 +11,21 @@ import java.time.LocalDateTime;
 @Data
 @ApiModel(description = "Trade entity")
 public class Trade {
+
     @ApiModelProperty(value = "Trade id")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     @ApiModelProperty(value = "buyer id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long buyerId;
 
     @ApiModelProperty(value = "seller id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long sellerId;
 
     @ApiModelProperty(value = "commodity id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long commodityId;
 
     @ApiModelProperty(value = "commodity name")
@@ -38,7 +42,6 @@ public class Trade {
 
     @ApiModelProperty(value = "total price")
     private Double totalPrice;
-
 
     @ApiModelProperty(value = "generation time")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

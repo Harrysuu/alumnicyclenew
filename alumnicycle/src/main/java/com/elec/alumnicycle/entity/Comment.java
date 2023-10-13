@@ -14,11 +14,13 @@ public class Comment {
     private Long id;
 
     @ApiModelProperty(value = "user id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long userId;
 
     @ApiModelProperty(value = "comment")
     private String comment;
 
     @ApiModelProperty(value = "forumPost id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long forumPostId;
 }

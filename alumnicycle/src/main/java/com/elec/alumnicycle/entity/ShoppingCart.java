@@ -24,11 +24,12 @@ public class ShoppingCart implements Serializable {
     private Long id;
 
     @ApiModelProperty(value = "user id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long userId;
 
     @ApiModelProperty(value = "goods id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long goodsId;
-
 
     @ApiModelProperty(value = "how many are wanted")
     private Integer number;
