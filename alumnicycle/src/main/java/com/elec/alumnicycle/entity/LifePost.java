@@ -41,4 +41,7 @@ public class LifePost {
     @ApiModelProperty(value = "picture address")
     private String picture;
 
+    @ApiModelProperty(value = "content")
+    private String content;
+
 }
