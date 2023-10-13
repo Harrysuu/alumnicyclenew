@@ -22,6 +22,9 @@ public class Announcement {
     @ApiModelProperty(value = "Announcement content")
     private String content;
 
+    @ApiModelProperty(value = "Announcement details")
+    private String detail;
+
     @ApiModelProperty(value = "post time")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime postTime;
