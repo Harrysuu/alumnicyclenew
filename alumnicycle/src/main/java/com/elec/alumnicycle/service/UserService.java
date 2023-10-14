@@ -10,12 +10,13 @@ import com.elec.alumnicycle.entity.params.UserParam;
 import com.elec.alumnicycle.entity.params.UserPasswordParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 public interface UserService extends IService<User> {
 
 
-    AjaxRes<User> login(HttpServletRequest request, User user);
+    AjaxRes<User> login(HttpServletRequest request, HttpSession session,User user);
 
     AjaxRes<String> logout(HttpServletRequest request);
 
@@ -34,4 +35,6 @@ public interface UserService extends IService<User> {
     AjaxRes<User> changePassword(UserPasswordParam param);
 
     AjaxRes<String> changeUserStatus(Long userId);
+
+    AjaxRes<String> loginByPhone(HttpSession session, String phoneNumber);
 }

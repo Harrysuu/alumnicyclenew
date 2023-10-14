@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/user")
@@ -25,8 +26,8 @@ public class UserController {
 
     @PostMapping("/login")
     @ApiOperation(value = "user login")
-    public AjaxRes<User> login(HttpServletRequest request, @RequestBody User user){
-        return userService.login(request, user);
+    public AjaxRes<User> login(HttpServletRequest request, HttpSession session,@RequestBody User user){
+        return userService.login(request,session,user);
     }
 
     @GetMapping("/logout")
@@ -77,4 +78,9 @@ public class UserController {
         return userService.changePassword(param);
     }
 
+    @GetMapping ("/loginWithPhone")
+    @ApiOperation(value = "login by Phone")
+    public AjaxRes<String> loginWithPhone(HttpSession session, String phoneNumber){
+        return userService.loginByPhone(session,phoneNumber);
+    }
 }
