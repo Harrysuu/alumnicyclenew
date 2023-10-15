@@ -258,7 +258,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             int codeNumber = new Random().nextInt(8999)+1000;
             String code = Integer.toString(codeNumber);
             log.info("verification code : {}",code);
-            SMSUtils.sendMessage("AlumniCycle","",phoneNumber,code);
+//            SMSUtils.sendMessage("AlumniCycle","",phoneNumber,code);
             session.setAttribute(phoneNumber,code);
         }else {
             AjaxRes.fail("This phone number does not exist!");
