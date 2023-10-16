@@ -9,18 +9,21 @@ import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.common.BaseContext;
 import com.elec.alumnicycle.entity.Admin;
 import com.elec.alumnicycle.entity.User;
+import com.elec.alumnicycle.entity.params.LoginParam;
 import com.elec.alumnicycle.entity.params.UserParam;
 import com.elec.alumnicycle.entity.params.UserPasswordParam;
 import com.elec.alumnicycle.mapper.UserMapper;
 import com.elec.alumnicycle.service.UserService;
+import com.elec.alumnicycle.utils.SMSUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,7 +32,11 @@ import java.util.regex.Pattern;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Override
-    public AjaxRes<User> login(HttpServletRequest request, User user) {
+    public AjaxRes<User> login(HttpServletRequest request, HttpSession session,User user) {
+        if(StringUtils.isNotEmpty(user.getPhoneNumber())){
+            Object codeInSession = session.getAttribute(user.getPhoneNumber());
+            return AjaxRes.success();
+        }
         // verify password
         String password = user.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
@@ -241,6 +248,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         this.updateById(targetUser);
 
         return AjaxRes.success();
+    }
+
+    @Override
+    public AjaxRes<String> loginByPhone(HttpSession session, String phoneNumber) {
+
+        LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(StringUtils.isNotEmpty(phoneNumber),User::getPhoneNumber,phoneNumber);
+        if(this.count(lqw) > 0 && phoneNumber.length() == 13){
+            int codeNumber = new Random().nextInt(8999)+1000;
+            String code = Integer.toString(codeNumber);
+            log.info("verification code : {}",code);
+//            SMSUtils.sendMessage("AlumniCycle","",phoneNumber,code);
+            session.setAttribute(phoneNumber,code);
+        }else {
+            AjaxRes.fail("This phone number does not exist!");
+        }
+        return AjaxRes.success("Login success");
     }
 
 

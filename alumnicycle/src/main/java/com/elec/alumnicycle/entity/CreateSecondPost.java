@@ -6,21 +6,18 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(description = "Comment entity")
-public class Comment {
+@ApiModel(description = "Create_Second_Post entity")
+public class CreateSecondPost {
 
-    @ApiModelProperty(value = "comment id")
+    @ApiModelProperty(value = "Create_Second_Post id")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
+
+    @ApiModelProperty(value = "second post id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Long secondPostId;
 
     @ApiModelProperty(value = "user id")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long userId;
-
-    @ApiModelProperty(value = "comment")
-    private String comment;
-
-    @ApiModelProperty(value = "forumPost id")
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Long forumPostId;
 }

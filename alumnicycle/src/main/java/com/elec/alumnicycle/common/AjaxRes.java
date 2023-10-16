@@ -1,11 +1,13 @@
 package com.elec.alumnicycle.common;
 
+import com.elec.alumnicycle.entity.ShoppingCart;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Ajax封装类
@@ -15,7 +17,7 @@ import java.io.Serializable;
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "返回数据实体",description = "返回数据")
-public class AjaxRes<T> implements Serializable {
+public class AjaxRes<T> implements Serializable{
 
     private static final long serialVersionUID = 6390864154586650382L;
 

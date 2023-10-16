@@ -14,7 +14,8 @@ public class CreateForumPost {
     private Long id;
 
     @ApiModelProperty(value = "post id")
-    private Long PostId;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Long postId;
 
     @ApiModelProperty(value = "user id")
     private Long userId;

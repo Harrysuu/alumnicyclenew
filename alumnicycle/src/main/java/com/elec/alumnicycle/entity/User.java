@@ -48,4 +48,7 @@ public class User {
 
     @ApiModelProperty(value = "picture address")
     private String picture;
+
+    @ApiModelProperty(value = "Phone number")
+    private String  phoneNumber;
 }
