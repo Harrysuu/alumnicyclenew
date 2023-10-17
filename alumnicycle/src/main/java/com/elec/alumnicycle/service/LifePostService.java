@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.entity.Announcement;
 import com.elec.alumnicycle.entity.LifePost;
+import com.elec.alumnicycle.entity.User;
 import com.elec.alumnicycle.entity.params.LifePostByIdParam;
 import com.elec.alumnicycle.entity.params.LifePostParam;
 import com.elec.alumnicycle.mapper.LifePostMapper;
@@ -33,4 +34,8 @@ public interface LifePostService extends IService<LifePost> {
     public boolean enrolStatusCheck(Long lifePostId);
 
     AjaxRes<LifePost> getPostById(Long id);
+
+    AjaxRes<User> getUser(Long id);
+
+    AjaxRes<List<User>> getAllEnrolledUser(Long id);
 }
