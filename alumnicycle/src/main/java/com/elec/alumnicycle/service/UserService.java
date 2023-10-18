@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.entity.User;
+import com.elec.alumnicycle.entity.params.LoginParam;
 import com.elec.alumnicycle.entity.params.UserParam;
 import com.elec.alumnicycle.entity.params.UserPasswordParam;
 
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpSession;
 public interface UserService extends IService<User> {
 
 
-    AjaxRes<User> login(HttpServletRequest request, HttpSession session,User user);
+    AjaxRes<User> login(HttpServletRequest request, HttpSession session, LoginParam loginparam);
 
     AjaxRes<String> logout(HttpServletRequest request);
 

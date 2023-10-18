@@ -32,19 +32,28 @@ import java.util.regex.Pattern;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Override
-    public AjaxRes<User> login(HttpServletRequest request, HttpSession session,User user) {
-        if(StringUtils.isNotEmpty(user.getPhoneNumber())){
-            Object codeInSession = session.getAttribute(user.getPhoneNumber());
-            return AjaxRes.success();
+    public AjaxRes<User> login(HttpServletRequest request, HttpSession session,LoginParam loginparam) {
+        if(StringUtils.isNotEmpty(loginparam.getPhoneNumber())){
+            Object codeInSession = session.getAttribute(loginparam.getPhoneNumber());
+            if(codeInSession.equals(loginparam.getCode())){
+                LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
+                lqw.eq(User::getPhoneNumber,loginparam.getPhoneNumber());
+                request.getSession().setAttribute("User",this.getOne(lqw).getId());
+
+                //set userId to BaseContext
+                BaseContext.setCurrentId(this.getOne(lqw).getId());
+                return AjaxRes.success(this.getOne(lqw));
+            }
+            return AjaxRes.failMsg("wrong verification code!");
         }
         // verify password
-        String password = user.getPassword();
+        String password = loginparam.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
         log.info(password);
 
         // check username in database
         LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(User::getUsername, user.getUsername());
+        lqw.eq(User::getUsername, loginparam.getUserName());
         // as the username is unique, getOne method is applied here
         User loginUser = this.getOne(lqw);
 
@@ -254,11 +263,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
         lqw.eq(StringUtils.isNotEmpty(phoneNumber),User::getPhoneNumber,phoneNumber);
-        if(this.count(lqw) > 0 && phoneNumber.length() == 13){
+        if(this.count(lqw) > 0 && phoneNumber.length() == 11){
             int codeNumber = new Random().nextInt(8999)+1000;
             String code = Integer.toString(codeNumber);
             log.info("verification code : {}",code);
-//            SMSUtils.sendMessage("AlumniCycle","",phoneNumber,code);
+            SMSUtils.sendMessage("阿里云短信测试","SMS_154950909",phoneNumber,code);
             session.setAttribute(phoneNumber,code);
         }else {
             AjaxRes.fail("This phone number does not exist!");

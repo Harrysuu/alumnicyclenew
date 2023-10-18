@@ -3,6 +3,7 @@ package com.elec.alumnicycle.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.entity.User;
+import com.elec.alumnicycle.entity.params.LoginParam;
 import com.elec.alumnicycle.entity.params.UserParam;
 import com.elec.alumnicycle.entity.params.UserPasswordParam;
 import com.elec.alumnicycle.service.UserService;
@@ -26,8 +27,8 @@ public class UserController {
 
     @PostMapping("/login")
     @ApiOperation(value = "user login")
-    public AjaxRes<User> login(HttpServletRequest request, HttpSession session,@RequestBody User user){
-        return userService.login(request,session,user);
+    public AjaxRes<User> login(HttpServletRequest request, HttpSession session,@RequestBody LoginParam loginparam){
+        return userService.login(request,session,loginparam);
     }
 
     @GetMapping("/logout")
@@ -78,9 +79,9 @@ public class UserController {
         return userService.changePassword(param);
     }
 
-    @GetMapping ("/loginWithPhone")
+    @PostMapping ("/loginWithPhone")
     @ApiOperation(value = "login by Phone")
-    public AjaxRes<String> loginWithPhone(HttpSession session, String phoneNumber){
+    public AjaxRes<String> loginWithPhone(HttpSession session, @RequestParam String phoneNumber){
         return userService.loginByPhone(session,phoneNumber);
     }
 }
