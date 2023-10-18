@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.entity.Announcement;
 import com.elec.alumnicycle.entity.LifePost;
+import com.elec.alumnicycle.entity.User;
 import com.elec.alumnicycle.entity.params.LifePostByIdParam;
 import com.elec.alumnicycle.entity.params.LifePostParam;
 import com.elec.alumnicycle.service.LifePostService;
@@ -13,6 +14,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/lifePost")
@@ -75,6 +78,18 @@ public class LifePostController {
     @ApiOperation(value = "get by PostID")
     public AjaxRes<LifePost> getPostById(Long id){
         return lifePostService.getPostById(id);
+    }
+
+    @GetMapping("/getUser")
+    @ApiOperation(value = "get user who creates the post")
+    public AjaxRes<User> getUser(Long id){
+        return lifePostService.getUser(id);
+    }
+
+    @GetMapping("/getAllEnrolledUser")
+    @ApiOperation(value = "get all enrolled users")
+    public AjaxRes<List<User>> getAllEnrolledUser(Long id){
+        return lifePostService.getAllEnrolledUser(id);
     }
 
 }

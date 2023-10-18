@@ -173,6 +173,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         currentUser.setDescription(user.getDescription());
         currentUser.setEmail(user.getEmail());
         currentUser.setEditTime(LocalDateTime.now());
+        currentUser.setPicture(user.getPicture());
 
         this.updateById(currentUser);
         return AjaxRes.success(currentUser);

@@ -5,23 +5,23 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.common.BaseContext;
-import com.elec.alumnicycle.entity.Announcement;
-import com.elec.alumnicycle.entity.CreateLifePost;
-import com.elec.alumnicycle.entity.Enrol;
+import com.elec.alumnicycle.entity.*;
 import com.elec.alumnicycle.entity.params.LifePostByIdParam;
 import com.elec.alumnicycle.mapper.EnrolMapper;
 import com.elec.alumnicycle.mapper.LifePostMapper;
-import com.elec.alumnicycle.entity.LifePost;
 import com.elec.alumnicycle.entity.params.LifePostParam;
 import com.elec.alumnicycle.service.CreateLifePostService;
 import com.elec.alumnicycle.service.EnrolService;
 import com.elec.alumnicycle.service.LifePostService;
+import com.elec.alumnicycle.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -33,6 +33,9 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
 
     @Autowired
     EnrolService enrolService;
+
+    @Autowired
+    UserService userService;
 
     @Override
     public AjaxRes<Page<LifePost>> getPostByPage(LifePostParam param) {
@@ -179,6 +182,37 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
 
         LifePost lifePost = this.getOne(lqw);
         return AjaxRes.success(lifePost);
+    }
+
+    @Override
+    public AjaxRes<User> getUser(Long id) {
+        LambdaQueryWrapper<CreateLifePost> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(CreateLifePost::getLifePostId, id);
+        CreateLifePost createLifePost = createLifePostService.getOne(lqw);
+
+        Long userId = createLifePost.getUserId();
+        return userService.getUserById(userId);
+
+    }
+
+    @Override
+    public AjaxRes<List<User>> getAllEnrolledUser(Long id) {
+        LambdaQueryWrapper<Enrol> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(Enrol::getLifePostId,id);
+
+        List<Enrol> enrolList = enrolService.list(lqw);
+        List<User> users = new ArrayList<>();
+
+        for (Enrol enrol : enrolList) {
+            Long userId = enrol.getUserId();
+            User user = userService.getById(userId);
+            if (user != null) {
+                users.add(user);
+            }
+        }
+
+        return AjaxRes.success(users);
+
     }
 
 
