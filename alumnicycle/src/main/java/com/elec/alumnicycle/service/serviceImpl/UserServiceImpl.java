@@ -53,12 +53,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         // check username in database
         LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(User::getUsername, loginparam.getUserName());
+        lqw.eq(User::getUsername, loginparam.getUsername());
         // as the username is unique, getOne method is applied here
         User loginUser = this.getOne(lqw);
 
         // if Username is not exist
-        if(loginUser == null){
+        if(this.count(lqw) == 0){
             return  AjaxRes.failMsg("User not exist");
 //            return AjaxRes.fail(null,"User not exist");
         }

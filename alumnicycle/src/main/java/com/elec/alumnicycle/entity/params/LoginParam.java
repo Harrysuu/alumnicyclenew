@@ -19,5 +19,5 @@ public class LoginParam {
     private String password;
 
     @ApiModelProperty(value = "userName")
-    private String userName;
+    private String username;
 }
