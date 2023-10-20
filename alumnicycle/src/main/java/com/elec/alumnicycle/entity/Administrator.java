@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Data
 @ApiModel(description = "Admin entity")
-public class Admin {
+public class Administrator {
     @ApiModelProperty(value = "Admin id")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;

@@ -1,10 +1,13 @@
 package com.elec.alumnicycle.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.elec.alumnicycle.entity.Admin;
-import com.elec.alumnicycle.entity.User;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.elec.alumnicycle.entity.Administrator;
+import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface AdminMapper extends BaseMapper<Admin> {
+public interface AdminMapper extends BaseMapper<Administrator> {
+
+    Page<Administrator> getAllAdmin(@Param("page") Page page);
 }

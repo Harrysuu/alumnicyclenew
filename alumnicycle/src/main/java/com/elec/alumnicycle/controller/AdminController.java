@@ -1,8 +1,8 @@
 package com.elec.alumnicycle.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.elec.alumnicycle.common.AjaxRes;
-import com.elec.alumnicycle.entity.Admin;
-import com.elec.alumnicycle.entity.User;
+import com.elec.alumnicycle.entity.Administrator;
 import com.elec.alumnicycle.entity.params.UserPasswordParam;
 import com.elec.alumnicycle.service.AdminService;
 import com.elec.alumnicycle.service.UserService;
@@ -28,8 +28,8 @@ public class AdminController {
 
     @PostMapping("/login")
     @ApiOperation(value = "admin login")
-    public AjaxRes<Admin> login(HttpServletRequest request, @RequestBody Admin admin){
-        return adminService.login(request, admin);
+    public AjaxRes<Administrator> login(HttpServletRequest request, @RequestBody Administrator administrator){
+        return adminService.login(request, administrator);
     }
 
     @GetMapping("/logout")
@@ -40,14 +40,14 @@ public class AdminController {
 
     @PostMapping("/signup")
     @ApiOperation(value = "signup a new admin")
-    public AjaxRes<Admin> addNewUser(HttpServletRequest request, @RequestBody Admin admin){
-        return adminService.signup(request, admin);
+    public AjaxRes<Administrator> addNewUser(HttpServletRequest request, @RequestBody Administrator administrator){
+        return adminService.signup(request, administrator);
     }
 
     @PostMapping("/updateAdmin")
     @ApiOperation(value = "update admin")
-    public AjaxRes<Admin> updateAdmin(@RequestBody Admin admin){
-        return adminService.updateAdmin(admin);
+    public AjaxRes<Administrator> updateAdmin(@RequestBody Administrator administrator){
+        return adminService.updateAdmin(administrator);
     }
 
     @GetMapping("/uniqueUsernameCheck")
@@ -58,7 +58,7 @@ public class AdminController {
 
     @PostMapping ("/changePassword")
     @ApiOperation(value = "change admin password")
-    public AjaxRes<Admin> changePassword(@RequestBody UserPasswordParam param){
+    public AjaxRes<Administrator> changePassword(@RequestBody UserPasswordParam param){
         return adminService.changePassword(param);
     }
 
@@ -72,6 +72,12 @@ public class AdminController {
     @ApiOperation(value = "change admin status")
     public AjaxRes<String> changeAdminStatus(Long adminId,HttpServletRequest request){
         return adminService.changeAdminStatus(adminId,request);
+    }
+
+    @PostMapping("/getAllAdmin")
+    @ApiOperation(value = "get admin data")
+    public AjaxRes<Page<Administrator>> getAllAdmin(@RequestBody Page page){
+        return adminService.getAllAdmin(page);
     }
 
 }

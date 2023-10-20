@@ -1,11 +1,8 @@
 package com.elec.alumnicycle.service.serviceImpl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.elec.alumnicycle.entity.Admin;
 import com.elec.alumnicycle.entity.CreateAnnounce;
-import com.elec.alumnicycle.mapper.AdminMapper;
 import com.elec.alumnicycle.mapper.CreateAnnounceMapper;
-import com.elec.alumnicycle.service.AdminService;
 import com.elec.alumnicycle.service.CreateAnnounceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

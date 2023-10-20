@@ -1,29 +1,22 @@
 package com.elec.alumnicycle.service.serviceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.common.BaseContext;
-import com.elec.alumnicycle.entity.Admin;
 import com.elec.alumnicycle.entity.Announcement;
 import com.elec.alumnicycle.entity.CreateAnnounce;
-import com.elec.alumnicycle.entity.LifePost;
 import com.elec.alumnicycle.entity.params.AnnouncementByIdParam;
 import com.elec.alumnicycle.entity.params.AnnouncementParam;
-import com.elec.alumnicycle.mapper.AdminMapper;
 import com.elec.alumnicycle.mapper.AnnouncementMapper;
-import com.elec.alumnicycle.service.AdminService;
 import com.elec.alumnicycle.service.AnnouncementService;
 import com.elec.alumnicycle.service.CreateAnnounceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
