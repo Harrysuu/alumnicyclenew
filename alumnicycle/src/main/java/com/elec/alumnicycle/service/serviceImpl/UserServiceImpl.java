@@ -103,7 +103,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
         LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(User::getId,user.getId());
+        lqw.eq(User::getUsername,user.getUsername());
         if (count(lqw) > 0){
             return AjaxRes.failMsg("username is already exist");
         }
