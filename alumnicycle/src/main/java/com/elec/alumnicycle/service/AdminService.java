@@ -15,11 +15,11 @@ public interface AdminService extends IService<Administrator> {
 
     AjaxRes<Administrator> signup(HttpServletRequest request, Administrator administrator);
 
-    AjaxRes<Administrator> updateAdmin(Administrator administrator);
+    AjaxRes<Administrator> updateAdmin(HttpServletRequest request, Administrator administrator);
 
     boolean uniqueUsername(String username);
 
-    AjaxRes<Administrator> changePassword(UserPasswordParam param);
+    AjaxRes<Administrator> changePassword(HttpServletRequest request, UserPasswordParam param);
 
     AjaxRes<String> changeAdminStatus(Long adminId,HttpServletRequest request);
 

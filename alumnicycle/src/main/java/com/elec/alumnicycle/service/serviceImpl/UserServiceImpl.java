@@ -35,10 +35,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             if(codeInSession.equals(loginparam.getCode())){
                 LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
                 lqw.eq(User::getPhoneNumber,loginparam.getPhoneNumber());
-                request.getSession().setAttribute("User",this.getOne(lqw).getId());
 
-                //set userId to BaseContext
-                BaseContext.setCurrentId(this.getOne(lqw).getId());
+                //set userId to session
+                request.getSession().setAttribute("User",this.getOne(lqw).getId());
+                //BaseContext.setCurrentId(this.getOne(lqw).getId());
                 return AjaxRes.success(this.getOne(lqw));
             }
             return AjaxRes.failMsg("wrong verification code!");
@@ -77,16 +77,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         request.getSession().setAttribute("User",userId);
 
         //set userId to BaseContext
-        BaseContext.setCurrentId(userId);
+//        BaseContext.setCurrentId(userId);
 
         //return success loginUser
         return AjaxRes.success(loginUser);
 
-//        改进拦截器里
-//        Long userId = (Long) request.getSession().getAttribute("User");
-//        Long currentUserId = BaseContext.getCurrentId();
-//        String stringValueId = String.valueOf(currentUserId);
-//        log.info(stringValueId);
 
     }
 
@@ -154,10 +149,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public AjaxRes<User> updateUser(User user) {
+    public AjaxRes<User> updateUser(HttpServletRequest request, User user) {
 
-        Long currentId = BaseContext.getCurrentId();
-        currentId = 99L;
+//        Long currentId = BaseContext.getCurrentId();
+//        currentId = 99L;
+        Long currentId = (Long) request.getSession().getAttribute("User");
 
         // get currentUser
         LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
@@ -188,9 +184,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public AjaxRes<User> addCredit(double point) {
-        Long currentId = BaseContext.getCurrentId();
-        currentId = 99L;
+    public AjaxRes<User> addCredit(HttpServletRequest request, double point) {
+//        Long currentId = BaseContext.getCurrentId();
+//        currentId = 99L;
+
+        Long currentId = (Long) request.getSession().getAttribute("User");
 
         // get currentUser
         LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
@@ -207,10 +205,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public AjaxRes<User> changePassword(UserPasswordParam param) {
+    public AjaxRes<User> changePassword(HttpServletRequest request, UserPasswordParam param) {
         // get id from BaseContext
-        Long currentId = BaseContext.getCurrentId();
-        currentId = 99L;
+//        Long currentId = BaseContext.getCurrentId();
+//        currentId = 99L;
+
+        Long currentId = (Long) request.getSession().getAttribute("User");
 
         // get passwords from param
         String oldPassword = param.getOldPassword();

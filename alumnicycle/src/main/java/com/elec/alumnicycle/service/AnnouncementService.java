@@ -13,7 +13,7 @@ import java.util.List;
 public interface AnnouncementService extends IService<Announcement> {
     AjaxRes<Page<Announcement>> getAnnouncementByPage(AnnouncementParam param);
 
-    AjaxRes<String> addAnnouncement(Announcement announcement);
+    AjaxRes<String> addAnnouncement(HttpServletRequest request, Announcement announcement);
 
     AjaxRes<String> deleteAnnouncement(Long id);
 

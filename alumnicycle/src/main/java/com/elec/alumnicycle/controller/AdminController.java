@@ -46,8 +46,8 @@ public class AdminController {
 
     @PostMapping("/updateAdmin")
     @ApiOperation(value = "update admin")
-    public AjaxRes<Administrator> updateAdmin(@RequestBody Administrator administrator){
-        return adminService.updateAdmin(administrator);
+    public AjaxRes<Administrator> updateAdmin(HttpServletRequest request, @RequestBody Administrator administrator){
+        return adminService.updateAdmin(request, administrator);
     }
 
     @GetMapping("/uniqueUsernameCheck")
@@ -58,8 +58,8 @@ public class AdminController {
 
     @PostMapping ("/changePassword")
     @ApiOperation(value = "change admin password")
-    public AjaxRes<Administrator> changePassword(@RequestBody UserPasswordParam param){
-        return adminService.changePassword(param);
+    public AjaxRes<Administrator> changePassword(HttpServletRequest request, @RequestBody UserPasswordParam param){
+        return adminService.changePassword(request, param);
     }
 
     @GetMapping ("/changeUserStatus")

@@ -34,8 +34,8 @@ public class AnnouncementController {
 
     @PostMapping("/add")
     @ApiOperation(value = "add a new announcement")
-    public AjaxRes<String> addAnnouncement(@RequestBody Announcement announcement){
-        return announcementService.addAnnouncement(announcement);
+    public AjaxRes<String> addAnnouncement(HttpServletRequest request, @RequestBody Announcement announcement){
+        return announcementService.addAnnouncement(request, announcement);
     }
 
     @GetMapping("/delete")

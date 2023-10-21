@@ -13,13 +13,14 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface LifePostService extends IService<LifePost> {
 
     public AjaxRes<Page<LifePost>> getPostByPage(LifePostParam param);
 
-    public AjaxRes<String> addLifePost(LifePost lifePost);
+    public AjaxRes<String> addLifePost(HttpServletRequest request, LifePost lifePost);
 
     public AjaxRes<String>  deleteLifePost(Long id);
 
@@ -27,11 +28,11 @@ public interface LifePostService extends IService<LifePost> {
 
     public AjaxRes<Page<LifePost>> getPostByUserId(LifePostByIdParam param);
 
-    public AjaxRes<LifePost> enrolLifePost(Long lifePostId);
+    public AjaxRes<LifePost> enrolLifePost(HttpServletRequest request, Long lifePostId);
 
-    public AjaxRes<LifePost> unEnrolLifePost(Long lifePostId);
+    public AjaxRes<LifePost> unEnrolLifePost(HttpServletRequest request, Long lifePostId);
 
-    public boolean enrolStatusCheck(Long lifePostId);
+    public boolean enrolStatusCheck(HttpServletRequest request, Long lifePostId);
 
     AjaxRes<LifePost> getPostById(Long id);
 

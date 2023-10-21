@@ -27,13 +27,13 @@ public interface UserService extends IService<User> {
 
     AjaxRes<User> getUserById(Long userId);
 
-    AjaxRes<User> updateUser(User user);
+    AjaxRes<User> updateUser(HttpServletRequest request, User user);
 
     boolean uniqueUsername(String username);
 
-    AjaxRes<User> addCredit(double point);
+    AjaxRes<User> addCredit(HttpServletRequest request, double point);
 
-    AjaxRes<User> changePassword(UserPasswordParam param);
+    AjaxRes<User> changePassword(HttpServletRequest request, UserPasswordParam param);
 
     AjaxRes<String> changeUserStatus(Long userId);
 

@@ -55,7 +55,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Administrator> im
         request.getSession().setAttribute("Admin",adminId);
 
         //set userId to BaseContext
-        BaseContext.setCurrentId(adminId);
+//        BaseContext.setCurrentId(adminId);
 
         loginAdministrator.setOperationTime(LocalDateTime.now());
         this.updateById(loginAdministrator);
@@ -105,10 +105,13 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Administrator> im
     }
 
     @Override
-    public AjaxRes<Administrator> updateAdmin(Administrator administrator) {
+    public AjaxRes<Administrator> updateAdmin(HttpServletRequest request, Administrator administrator) {
 
-        Long currentId = BaseContext.getCurrentId();
-        currentId = 33L;
+//        Long currentId = BaseContext.getCurrentId();
+//        currentId = 33L;
+
+        // get currentId
+        Long currentId = (Long) request.getSession().getAttribute("Admin");
 
         // get currentUser
         LambdaQueryWrapper<Administrator> lqw = new LambdaQueryWrapper<>();
@@ -138,10 +141,13 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Administrator> im
     }
 
     @Override
-    public AjaxRes<Administrator> changePassword(UserPasswordParam param) {
+    public AjaxRes<Administrator> changePassword(HttpServletRequest request, UserPasswordParam param) {
         // get id from BaseContext
-        Long currentId = BaseContext.getCurrentId();
-        currentId = 33L;
+//        Long currentId = BaseContext.getCurrentId();
+//        currentId = 33L;
+
+        // get currentId
+        Long currentId = (Long) request.getSession().getAttribute("Admin");
 
         // get passwords from param
         String oldPassword = param.getOldPassword();

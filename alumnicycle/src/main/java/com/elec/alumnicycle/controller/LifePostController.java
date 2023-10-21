@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -34,8 +35,8 @@ public class LifePostController {
 
     @PostMapping("/add")
     @ApiOperation(value = "add a new lifePost")
-    public AjaxRes<String> addLifePost(@RequestBody LifePost lifePost){
-        return lifePostService.addLifePost(lifePost);
+    public AjaxRes<String> addLifePost(HttpServletRequest request, @RequestBody LifePost lifePost){
+        return lifePostService.addLifePost(request, lifePost);
     }
 
     @GetMapping("/delete")
@@ -58,20 +59,20 @@ public class LifePostController {
 
     @GetMapping("/enrolById")
     @ApiOperation(value = "enrol lifePost")
-    public AjaxRes<LifePost> enrolLifePost(Long lifePostId){
-        return lifePostService.enrolLifePost(lifePostId);
+    public AjaxRes<LifePost> enrolLifePost(HttpServletRequest request, Long lifePostId){
+        return lifePostService.enrolLifePost(request, lifePostId);
     }
 
     @GetMapping("/cancelEnrolById")
     @ApiOperation(value = "Cancel enrol lifePost")
-    public AjaxRes<LifePost> unEnrolLifePost(Long lifePostId){
-        return lifePostService.unEnrolLifePost(lifePostId);
+    public AjaxRes<LifePost> unEnrolLifePost(HttpServletRequest request, Long lifePostId){
+        return lifePostService.unEnrolLifePost(request, lifePostId);
     }
 
     @GetMapping("/enrolCheck")
     @ApiOperation(value = "check enrolment of lifePost")
-    public boolean enrolStatusCheck(Long lifePostId){
-        return  lifePostService.enrolStatusCheck(lifePostId);
+    public boolean enrolStatusCheck(HttpServletRequest request, Long lifePostId){
+        return  lifePostService.enrolStatusCheck(request, lifePostId);
     }
 
     @GetMapping("/getPostById")

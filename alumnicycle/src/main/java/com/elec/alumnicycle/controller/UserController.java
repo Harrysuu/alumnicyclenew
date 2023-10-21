@@ -57,8 +57,8 @@ public class UserController {
 
     @PostMapping("/updateUser")
     @ApiOperation(value = "update user")
-    public AjaxRes<User> updateUser(@RequestBody User user){
-        return userService.updateUser(user);
+    public AjaxRes<User> updateUser(HttpServletRequest request, @RequestBody User user){
+        return userService.updateUser(request, user);
     }
 
     @GetMapping("/uniqueUsernameCheck")
@@ -69,14 +69,14 @@ public class UserController {
 
     @GetMapping("/addCredit")
     @ApiOperation(value = "add credit")
-    public AjaxRes<User> addCredit(double point){
-        return userService.addCredit(point);
+    public AjaxRes<User> addCredit(HttpServletRequest request, double point){
+        return userService.addCredit(request, point);
     }
 
     @PostMapping ("/changePassword")
     @ApiOperation(value = "change user password")
-    public AjaxRes<User> changePassword(@RequestBody UserPasswordParam param){
-        return userService.changePassword(param);
+    public AjaxRes<User> changePassword(HttpServletRequest request, @RequestBody UserPasswordParam param){
+        return userService.changePassword(request, param);
     }
 
     @PostMapping ("/loginWithPhone")

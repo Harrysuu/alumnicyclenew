@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -36,12 +37,13 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
     }
 
     @Override
-    public AjaxRes<String> addAnnouncement(Announcement announcement) {
+    public AjaxRes<String> addAnnouncement(HttpServletRequest request, Announcement announcement) {
         //get admin id
-        Long adminId = BaseContext.getCurrentId();
+//        Long adminId = BaseContext.getCurrentId();
+//        adminId = 99L;
 
-        // test only
-        adminId = 99L;
+        //get admin id
+        Long adminId = (Long) request.getSession().getAttribute("Admin");
 
         //set post time and Id
         announcement.setPostTime(LocalDateTime.now());
