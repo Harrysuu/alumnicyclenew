@@ -8,10 +8,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.common.BaseContext;
 import com.elec.alumnicycle.entity.Administrator;
+import com.elec.alumnicycle.entity.User;
 import com.elec.alumnicycle.entity.params.UserPasswordParam;
 import com.elec.alumnicycle.mapper.AdminMapper;
 import com.elec.alumnicycle.service.AdminService;
+import com.elec.alumnicycle.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -23,6 +26,7 @@ import java.util.regex.Pattern;
 @Service
 @Slf4j
 public class AdminServiceImpl extends ServiceImpl<AdminMapper, Administrator> implements AdminService {
+
     @Override
     public AjaxRes<Administrator> login(HttpServletRequest request, Administrator administrator) {
         //verify password
@@ -198,6 +202,11 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Administrator> im
     @Override
     public AjaxRes<Page<Administrator>> getAllAdmin(Page page) {
         return AjaxRes.success(this.getBaseMapper().getAllAdmin(page));
+    }
+
+    @Override
+    public AjaxRes<Page<User>> getAllUser(Page page) {
+        return AjaxRes.success(this.getBaseMapper().getAllUser(page));
     }
 
 

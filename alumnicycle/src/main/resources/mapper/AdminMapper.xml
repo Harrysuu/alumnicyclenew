@@ -8,4 +8,8 @@
     <select id="getAllAdmin" resultType="com.elec.alumnicycle.entity.Administrator">
         SELECT * FROM administrator a where a.id IS NOT NULL
     </select>
+
+    <select id="getAllUser" resultType="com.elec.alumnicycle.entity.User">
+        SELECT * FROM user a where a.id IS NOT NULL
+    </select>
 </mapper>

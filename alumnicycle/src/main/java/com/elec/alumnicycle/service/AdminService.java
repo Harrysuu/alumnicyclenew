@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.entity.Administrator;
+import com.elec.alumnicycle.entity.User;
 import com.elec.alumnicycle.entity.params.UserPasswordParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,4 +25,6 @@ public interface AdminService extends IService<Administrator> {
     AjaxRes<String> changeAdminStatus(Long adminId,HttpServletRequest request);
 
     AjaxRes<Page<Administrator>> getAllAdmin(Page page);
+
+    AjaxRes<Page<User>> getAllUser(Page page);
 }

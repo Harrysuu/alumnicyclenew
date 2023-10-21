@@ -3,6 +3,7 @@ package com.elec.alumnicycle.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.entity.Administrator;
+import com.elec.alumnicycle.entity.User;
 import com.elec.alumnicycle.entity.params.UserPasswordParam;
 import com.elec.alumnicycle.service.AdminService;
 import com.elec.alumnicycle.service.UserService;
@@ -78,6 +79,12 @@ public class AdminController {
     @ApiOperation(value = "get admin data")
     public AjaxRes<Page<Administrator>> getAllAdmin(@RequestBody Page page){
         return adminService.getAllAdmin(page);
+    }
+
+    @PostMapping("/getAllUser")
+    @ApiOperation(value = "get user data")
+    public AjaxRes<Page<User>> getAllUser(@RequestBody Page page){
+        return adminService.getAllUser(page);
     }
 
 }
