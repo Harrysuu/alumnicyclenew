@@ -2,11 +2,9 @@ package com.elec.alumnicycle.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.elec.alumnicycle.common.AjaxRes;
-import com.elec.alumnicycle.entity.Administrator;
-import com.elec.alumnicycle.entity.User;
+import com.elec.alumnicycle.entity.*;
 import com.elec.alumnicycle.entity.params.UserPasswordParam;
-import com.elec.alumnicycle.service.AdminService;
-import com.elec.alumnicycle.service.UserService;
+import com.elec.alumnicycle.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +24,15 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LifePostService lifePostService;
+
+    @Autowired
+    private ForumPostService forumPostService;
+
+    @Autowired
+    private SecondPostService secondPostService;
 
     @PostMapping("/login")
     @ApiOperation(value = "admin login")
@@ -85,6 +92,24 @@ public class AdminController {
     @ApiOperation(value = "get user data")
     public AjaxRes<Page<User>> getAllUser(@RequestBody Page page){
         return adminService.getAllUser(page);
+    }
+
+    @PostMapping("/getAllLifePost")
+    @ApiOperation(value = "get life post data")
+    public AjaxRes<Page<LifePost>> getAllLifePost(@RequestBody Page page){
+        return lifePostService.getAllLifePost(page);
+    }
+
+    @PostMapping("/getAllForumPost")
+    @ApiOperation(value = "get all forum post")
+    public AjaxRes<Page<ForumPost>> getAllForumPost(@RequestBody Page page){
+        return forumPostService.getAllForumPost(page);
+    }
+
+    @PostMapping("/getAllSecondPost")
+    @ApiOperation(value = "get all second hand commodity information")
+    public AjaxRes<Page<SecondPost>> getAllSecondPost(@RequestBody Page page){
+        return secondPostService.getAllSecondPost(page);
     }
 
 }

@@ -92,4 +92,9 @@ public class SecondPostServiceImpl extends ServiceImpl<SecondPostMapper, SecondP
 
         return AjaxRes.success(secondPost);
     }
+
+    @Override
+    public AjaxRes<Page<SecondPost>> getAllSecondPost(Page page) {
+        return AjaxRes.success(this.getBaseMapper().getAllSecondPost(page));
+    }
 }

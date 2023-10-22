@@ -39,4 +39,6 @@ public interface LifePostService extends IService<LifePost> {
     AjaxRes<User> getUser(Long id);
 
     AjaxRes<List<User>> getAllEnrolledUser(Long id);
+
+    AjaxRes<Page<LifePost>> getAllLifePost(Page page);
 }

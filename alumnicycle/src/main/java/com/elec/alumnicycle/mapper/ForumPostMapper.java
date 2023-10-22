@@ -13,5 +13,8 @@ import java.util.List;
 @Mapper
 @Repository
 public interface ForumPostMapper extends BaseMapper<ForumPost>{
+
     Page<ForumPost> getForumPostsByUserId(@Param("page") Page page, @Param("userId") Long userId);
+
+    Page<ForumPost> getAllForumPost(@Param("page") Page page);
 }

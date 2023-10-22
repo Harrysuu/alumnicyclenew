@@ -227,6 +227,11 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
 
     }
 
+    @Override
+    public AjaxRes<Page<LifePost>> getAllLifePost(Page page) {
+        return AjaxRes.success(this.getBaseMapper().getAllLifePost(page));
+    }
+
 
 }
 

@@ -14,4 +14,6 @@ import java.util.List;
 public interface LifePostMapper extends BaseMapper<LifePost> {
 
     Page<LifePost> getLifePostsByUserId(@Param("page") Page page, @Param("userId") Long userId);
+
+    Page<LifePost> getAllLifePost(@Param("page") Page page);
 }

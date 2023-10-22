@@ -15,5 +15,9 @@
         WHERE
         b.user_id = #{userId}
     </select>
+    <select id="getAllForumPost" resultType="com.elec.alumnicycle.entity.ForumPost">
+        select * from forum_post a where a.id is not null
+        ORDER BY a.edit_time DESC
+    </select>
 
 </mapper>
