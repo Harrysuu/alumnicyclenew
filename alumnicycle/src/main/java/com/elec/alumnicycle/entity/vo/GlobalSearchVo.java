@@ -1,4 +1,4 @@
-package com.elec.alumnicycle.entity.Vo;
+package com.elec.alumnicycle.entity.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;

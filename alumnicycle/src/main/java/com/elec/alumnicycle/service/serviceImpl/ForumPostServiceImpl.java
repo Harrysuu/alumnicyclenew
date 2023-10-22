@@ -114,6 +114,6 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
 
     @Override
     public AjaxRes<Page<ForumPost>> getAllForumPost(Page page) {
-        return null;
+        return AjaxRes.success(this.getBaseMapper().getAllForumPost(page));
     }
 }
