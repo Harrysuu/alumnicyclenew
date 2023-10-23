@@ -19,5 +19,4 @@ public class CreateForumPost {
 
     @ApiModelProperty(value = "user id")
     private Long userId;
-
 }

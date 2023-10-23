@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.entity.ForumPost;
 import com.elec.alumnicycle.entity.LifePost;
+import com.elec.alumnicycle.entity.User;
 import com.elec.alumnicycle.entity.params.ForumPostByIdParam;
 import com.elec.alumnicycle.entity.params.ForumPostParam;
 import com.elec.alumnicycle.entity.params.LifePostByIdParam;
@@ -14,13 +15,14 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface ForumPostService extends IService<ForumPost> {
 
     public AjaxRes<Page<ForumPost>> getPostByPage(ForumPostParam param);
 
-    public AjaxRes<String> addForumPost(ForumPost forumPost);
+    public AjaxRes<String> addForumPost(HttpServletRequest request, ForumPost forumPost);
 
     public AjaxRes<String>  deleteForumPost(Long id);
 
@@ -28,6 +30,9 @@ public interface ForumPostService extends IService<ForumPost> {
 
     public AjaxRes<Page<ForumPost>> getPostByUserId(ForumPostByIdParam param);
 
-    public AjaxRes<ForumPost> addComment(Long forumPostId, String comment);
+    public AjaxRes<ForumPost> addComment(HttpServletRequest request, Long forumPostId, String comment, Long userId);
 
+    AjaxRes<ForumPost> getPostById(Long id);
+
+    AjaxRes<User> getUser(Long id);
 }

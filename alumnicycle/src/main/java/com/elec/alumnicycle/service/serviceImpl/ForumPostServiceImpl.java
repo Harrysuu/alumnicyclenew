@@ -4,15 +4,18 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.elec.alumnicycle.common.AjaxRes;
-import com.elec.alumnicycle.common.BaseContext;
 import com.elec.alumnicycle.entity.*;
 import com.elec.alumnicycle.entity.params.ForumPostByIdParam;
+import com.elec.alumnicycle.service.CreateForumPostService;
+import com.elec.alumnicycle.service.UserService;
 import com.elec.alumnicycle.entity.params.ForumPostParam;
 import com.elec.alumnicycle.mapper.ForumPostMapper;
 import com.elec.alumnicycle.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
 @Service
@@ -28,6 +31,9 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    UserService userService;
+
     @Override
     public AjaxRes<Page<ForumPost>> getPostByPage(ForumPostParam param) {
         LambdaQueryWrapper<ForumPost> lqw = new LambdaQueryWrapper<>();
@@ -40,15 +46,16 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
         return AjaxRes.success(pageInfo);
     }
 
+
     @Override
-    public AjaxRes<String> addForumPost(ForumPost forumPost) {
+    public AjaxRes<String> addForumPost(HttpServletRequest request, ForumPost forumPost) {
         //get user id
-        Long userId = BaseContext.getCurrentId();
+        Long userId = (Long) request.getSession().getAttribute("User");
 
         // for test only
-        userId = (long) 1;
-        String stringValueId = String.valueOf(userId);
-        log.info( "test get user id"+String.valueOf(stringValueId));
+        // userId = (long) 1;
+        // String stringValueId = String.valueOf(userId);
+        // log.info( "test get user id"+String.valueOf(stringValueId));
 
         //set post time
         forumPost.setPostTime(LocalDateTime.now());
@@ -79,28 +86,23 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
     }
 
     @Override
-    public AjaxRes<ForumPost> updateForumPost(ForumPost forumPost) {
-        return null;
-    }
-
-    @Override
     public AjaxRes<Page<ForumPost>> getPostByUserId(ForumPostByIdParam param) {
         return AjaxRes.success(this.getBaseMapper().getForumPostsByUserId(param.getPage(),param.getUserId()));
     }
 
     @Override
-    public AjaxRes<ForumPost> addComment(Long forumPostId, String comment) {
+    public AjaxRes<ForumPost> addComment(HttpServletRequest request, Long forumPostId, String comment, Long userId) {
         // get current userID
 //        Long currentUserId = BaseContext.getCurrentId();
-        Long currentUserId = 99L;
+//        Long currentUserId = (Long) request.getSession().getAttribute("User");
 
         Comment newComment = new Comment();
-        newComment.setUserId(currentUserId);
+//        newComment.setUserId(currentUserId);
         newComment.setForumPostId(forumPostId);
         newComment.setComment(comment);
+        newComment.setUserId(userId);
 
         commentService.save(newComment);
-
 
         //get post
         LambdaQueryWrapper<ForumPost> lqw = new LambdaQueryWrapper<>();
@@ -110,5 +112,34 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
         return AjaxRes.success(forumPost);
 
 
+    }
+
+    @Override
+    public AjaxRes<ForumPost> getPostById(Long id) {
+        LambdaQueryWrapper<ForumPost> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(ForumPost::getId, id);
+
+        ForumPost forumPost = this.getOne(lqw);
+        return AjaxRes.success(forumPost);
+    }
+
+    @Override
+    public AjaxRes<User> getUser(Long id) {
+        LambdaQueryWrapper<CreateForumPost> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(CreateForumPost::getPostId, id);
+        CreateForumPost createForumPost = createForumPostService.getOne(lqw);
+
+        Long userId = createForumPost.getUserId();
+        return userService.getUserById(userId);
+
+    }
+
+    @Override
+    public AjaxRes<ForumPost> updateForumPost(ForumPost forumPost) {
+        forumPost.setPostTime(LocalDateTime.now());
+
+        this.updateById(forumPost);
+
+        return AjaxRes.success(forumPost);
     }
 }
