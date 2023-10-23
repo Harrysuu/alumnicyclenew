@@ -1,7 +1,7 @@
 package com.elec.alumnicycle.controller;
 
 import com.elec.alumnicycle.common.AjaxRes;
-import com.elec.alumnicycle.entity.Vo.GlobalSearchVo;
+import com.elec.alumnicycle.entity.vo.GlobalSearchVo;
 import com.elec.alumnicycle.service.CommonService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

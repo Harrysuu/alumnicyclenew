@@ -15,5 +15,9 @@
         WHERE
         b.user_id = #{userId}
     </select>
+    <select id="getAllSecondPost" resultType="com.elec.alumnicycle.entity.SecondPost">
+        select * from second_post a where a.id is not null
+        ORDER BY a.edit_time DESC
+    </select>
 
 </mapper>

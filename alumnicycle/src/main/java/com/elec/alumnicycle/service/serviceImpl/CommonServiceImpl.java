@@ -6,7 +6,7 @@ import com.elec.alumnicycle.entity.ForumPost;
 import com.elec.alumnicycle.entity.LifePost;
 import com.elec.alumnicycle.entity.SecondPost;
 import com.elec.alumnicycle.entity.User;
-import com.elec.alumnicycle.entity.Vo.GlobalSearchVo;
+import com.elec.alumnicycle.entity.vo.GlobalSearchVo;
 import com.elec.alumnicycle.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

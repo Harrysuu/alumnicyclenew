@@ -15,5 +15,9 @@
         WHERE
         b.user_id = #{userId}
     </select>
+    <select id="getAllLifePost" resultType="com.elec.alumnicycle.entity.LifePost">
+        select * from life_post a where a.id is not null
+        ORDER BY a.post_time DESC
+    </select>
 
 </mapper>

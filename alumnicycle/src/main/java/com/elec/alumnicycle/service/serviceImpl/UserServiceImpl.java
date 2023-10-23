@@ -113,6 +113,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setCreateTime(LocalDateTime.now());
         user.setEditTime(LocalDateTime.now());
         user.setStatusInformation(1);
+        user.setCredit(0.0);
 
         // save
         this.save(user);
@@ -247,8 +248,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         if (currentStatusInformation == 1){
             targetUser.setStatusInformation(0);
+            targetUser.setEditTime(LocalDateTime.now());
         }else if (currentStatusInformation == 0){
             targetUser.setStatusInformation(1);
+            targetUser.setEditTime(LocalDateTime.now());
         }
 
         this.updateById(targetUser);

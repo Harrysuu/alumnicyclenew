@@ -12,5 +12,8 @@ import java.util.List;
 @Mapper
 @Repository
 public interface SecondPostMapper extends BaseMapper<SecondPost> {
+
     Page<SecondPost> getSecondPostsByUserId(@Param("page") Page page, @Param("userId") Long userId);
+
+    Page<SecondPost> getAllSecondPost(@Param("page") Page page);
 }

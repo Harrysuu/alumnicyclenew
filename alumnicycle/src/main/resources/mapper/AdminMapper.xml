@@ -7,9 +7,11 @@
 
     <select id="getAllAdmin" resultType="com.elec.alumnicycle.entity.Administrator">
         SELECT * FROM administrator a where a.id IS NOT NULL
+        ORDER BY a.operation_time DESC
     </select>
 
     <select id="getAllUser" resultType="com.elec.alumnicycle.entity.User">
         SELECT * FROM user a where a.id IS NOT NULL
+        ORDER BY a.edit_time DESC
     </select>
 </mapper>
