@@ -1,6 +1,7 @@
 package com.elec.alumnicycle.controller;
 
 import com.elec.alumnicycle.common.AjaxRes;
+import com.elec.alumnicycle.entity.params.SearchRequest;
 import com.elec.alumnicycle.entity.vo.GlobalSearchVo;
 import com.elec.alumnicycle.service.CommonService;
 import io.swagger.annotations.Api;
@@ -18,6 +19,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -38,7 +40,8 @@ public class CommonController {
 
     @PostMapping("/globalSearch")
     @ApiOperation(value = "Global Search")
-    public AjaxRes<List<GlobalSearchVo>> search(@RequestParam String keyword){
+    public AjaxRes<List<GlobalSearchVo>> search(@RequestBody SearchRequest searchRequest) {
+        String keyword = searchRequest.getKeyword();
         return commonService.search(keyword);
     }
 
