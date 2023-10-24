@@ -35,4 +35,6 @@ public interface ForumPostService extends IService<ForumPost> {
     AjaxRes<ForumPost> getPostById(Long id);
 
     AjaxRes<User> getUser(Long id);
+
+    AjaxRes<Page<ForumPost>> getAllForumPost(Page page);
 }

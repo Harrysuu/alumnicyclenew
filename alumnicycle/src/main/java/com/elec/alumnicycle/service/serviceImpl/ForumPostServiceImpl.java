@@ -135,6 +135,11 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
     }
 
     @Override
+    public AjaxRes<Page<ForumPost>> getAllForumPost(Page page) {
+        return AjaxRes.success(this.getBaseMapper().getAllForumPost(page));
+    }
+
+    @Override
     public AjaxRes<ForumPost> updateForumPost(ForumPost forumPost) {
         forumPost.setPostTime(LocalDateTime.now());
 
