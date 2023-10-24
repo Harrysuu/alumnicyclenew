@@ -10,6 +10,7 @@ import lombok.Data;
 
 public class CommentByPostParam {
     private Long forumPostId;
+    private Long userId;
     private int page;
     private int pageSize;
 }
