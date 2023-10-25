@@ -21,4 +21,6 @@ public interface SecondPostService extends IService<SecondPost> {
     public AjaxRes<SecondPost> updateSecondPost(SecondPost secondPost);
 
     public AjaxRes<Page<SecondPost>> getAllSecondPost(Page page);
+
+    public AjaxRes<SecondPost> getCommodityById(Long id);
 }

@@ -99,4 +99,11 @@ public class SecondPostServiceImpl extends ServiceImpl<SecondPostMapper, SecondP
     public AjaxRes<Page<SecondPost>> getAllSecondPost(Page page) {
         return AjaxRes.success(this.getBaseMapper().getAllSecondPost(page));
     }
+
+    @Override
+    public AjaxRes<SecondPost> getCommodityById(Long id) {
+        LambdaQueryWrapper<SecondPost> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(SecondPost::getId,id);
+        return AjaxRes.success(this.getOne(lqw));
+    }
 }

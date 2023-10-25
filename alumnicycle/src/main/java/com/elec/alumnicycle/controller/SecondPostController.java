@@ -55,5 +55,11 @@ public class SecondPostController {
         return secondPostService.updateSecondPost(secondPost);
     }
 
+    @GetMapping("/getCommodityById")
+    @ApiOperation(value = "get commodity by ID")
+    public AjaxRes<SecondPost> getCommodityById(Long id){
+        return secondPostService.getCommodityById(id);
+    }
+
 }
 
