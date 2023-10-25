@@ -43,4 +43,7 @@ public class ShoppingCart implements Serializable {
     @ApiModelProperty(value = "create time")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
+
+    @ApiModelProperty(value = "commodity name")
+    private String commodityName;
 }

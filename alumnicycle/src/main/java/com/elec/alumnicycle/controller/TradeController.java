@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/trade")
 @Slf4j
@@ -30,7 +32,7 @@ public class TradeController {
         return tradeService.getTradeById(tradeId);
     }
     @GetMapping("/submit")
-    public AjaxRes<String> submit(){
-        return tradeService.submit();
+    public AjaxRes<String> submit(HttpServletRequest request){
+        return tradeService.submit(request);
     }
 }

@@ -15,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/secondPost")
 @Slf4j
@@ -37,8 +39,8 @@ public class SecondPostController {
 
     @PostMapping("/add")
     @ApiOperation(value = "add a new secondPost")
-    public AjaxRes<String> addSecondPost(@RequestBody SecondPost secondPost){
-        return secondPostService.addSecondPost(secondPost);
+    public AjaxRes<String> addSecondPost(@RequestBody SecondPost secondPost,HttpServletRequest request){
+        return secondPostService.addSecondPost(secondPost,request);
     }
 
     @GetMapping("/delete")

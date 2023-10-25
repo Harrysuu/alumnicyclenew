@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -66,10 +67,11 @@ public class TradeServiceImpl extends ServiceImpl<TradeMapper, Trade>implements 
      */
     @Override
     @Transactional
-    public AjaxRes<String> submit() {
+    public AjaxRes<String> submit(HttpServletRequest request) {
         // 获取当前用户id
         //Long buyerId = BaseContext.getCurrentId();
-        Long buyerId = 99L;        // 查询当前用户的购物车数据
+//        Long buyerId = 99L;        // 查询当前用户的购物车数据
+        Long buyerId = (Long)request.getSession().getAttribute("User");
         LambdaQueryWrapper<ShoppingCart> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(ShoppingCart::getUserId,buyerId);
         List<ShoppingCart> shoppingCarts = shoppingCartService.list(wrapper);
@@ -93,7 +95,7 @@ public class TradeServiceImpl extends ServiceImpl<TradeMapper, Trade>implements 
 
         // 检查买家的信用积分是否足够支付订单
         if (buyer.getCredit() < totalAmount) {
-            AjaxRes.failMsg("credit is not enough to pay");
+            return AjaxRes.failMsg("credit is not enough to pay");
         }
 
         // 减少买家的信用积分

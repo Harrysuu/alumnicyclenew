@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -45,13 +46,14 @@ public class SecondPostServiceImpl extends ServiceImpl<SecondPostMapper, SecondP
     }
 
     @Override
-    public AjaxRes<String> addSecondPost(SecondPost secondPost) {
+    public AjaxRes<String> addSecondPost(SecondPost secondPost,HttpServletRequest request) {
 
         //get user id
-        Long userId = BaseContext.getCurrentId();
+//        Long userId = BaseContext.getCurrentId();
+        Long userId = (Long) request.getSession().getAttribute("User");
 
         // for test only
-        userId = (long) 1;
+//        userId = (long) 1;
         String stringValueId = String.valueOf(userId);
         log.info( "test get user id"+String.valueOf(stringValueId));
 

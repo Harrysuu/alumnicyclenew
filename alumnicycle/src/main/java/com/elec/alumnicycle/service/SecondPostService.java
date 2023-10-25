@@ -7,12 +7,14 @@ import com.elec.alumnicycle.entity.SecondPost;
 import com.elec.alumnicycle.entity.params.SecondPostByIdParam;
 import com.elec.alumnicycle.entity.params.SecondPostParam;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface SecondPostService extends IService<SecondPost> {
     public AjaxRes<Page<SecondPost>> getPostByPage(SecondPostParam param);
 
     public AjaxRes<Page<SecondPost>> getPostByUserId(SecondPostByIdParam param);
 
-    public AjaxRes<String> addSecondPost(SecondPost secondPost);
+    public AjaxRes<String> addSecondPost(SecondPost secondPost,HttpServletRequest request);
 
     public AjaxRes<String>  deleteSecondPost(Long id);
 
