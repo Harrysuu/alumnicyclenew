@@ -72,12 +72,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 //            return AjaxRes.fail(null,"This user is blocked");
         }
 
+        //set session intervals as 2 hours
+        session = request.getSession();
+        session.setMaxInactiveInterval(7200);
+
         // set user id into Session
         Long userId = loginUser.getId();
         request.getSession().setAttribute("User",userId);
 
         //set userId to BaseContext
-//        BaseContext.setCurrentId(userId);
+        //BaseContext.setCurrentId(userId);
+
+        session = request.getSession(false); // 获取当前会话的Session对象，如果没有会话则返回null
+        if (session != null) {
+            int maxInactiveInterval = session.getMaxInactiveInterval(); // 获取Session的最大非活动时间间隔（以秒为单位）
+            // maxInactiveInterval 即为Session的时效
+            System.out.println("Session时效（秒）：" + maxInactiveInterval);
+        }
+
 
         //return success loginUser
         return AjaxRes.success(loginUser);
