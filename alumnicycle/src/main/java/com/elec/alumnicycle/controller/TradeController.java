@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 public class TradeController {
     @Autowired
     private TradeService tradeService;
+
     @PostMapping("/page")
     @ApiOperation(value = "get trade pages")
     public AjaxRes<Page<Trade>> tradePage(@RequestBody TradeParam param){
@@ -31,7 +32,9 @@ public class TradeController {
     public AjaxRes<Trade> getTradeById(Long tradeId){
         return tradeService.getTradeById(tradeId);
     }
+
     @GetMapping("/submit")
+    @ApiOperation(value = "submit transaction")
     public AjaxRes<String> submit(HttpServletRequest request){
         return tradeService.submit(request);
     }
