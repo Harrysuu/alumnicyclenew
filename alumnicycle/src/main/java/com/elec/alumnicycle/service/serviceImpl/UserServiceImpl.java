@@ -74,7 +74,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         //set session intervals as 2 hours
         session = request.getSession();
-        session.setMaxInactiveInterval(7200);
+        session.setMaxInactiveInterval(18000);
 
         // set user id into Session
         Long userId = loginUser.getId();
