@@ -8,6 +8,7 @@ class AlumnicycleApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }
