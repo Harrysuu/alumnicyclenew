@@ -32,6 +32,7 @@ public class TradeController {
         return tradeService.getTradeById(tradeId);
     }
     @GetMapping("/submit")
+    @ApiOperation(value = "submit order")
     public AjaxRes<String> submit(HttpServletRequest request){
         return tradeService.submit(request);
     }

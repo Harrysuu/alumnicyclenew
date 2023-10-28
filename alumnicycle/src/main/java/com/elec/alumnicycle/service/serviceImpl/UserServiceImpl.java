@@ -83,7 +83,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (session != null) {
             int maxInactiveInterval = session.getMaxInactiveInterval();
 
-            System.out.println("Session时效（秒）：" + maxInactiveInterval);
+            System.out.println("Session in seconds：" + maxInactiveInterval);
         }
 
 

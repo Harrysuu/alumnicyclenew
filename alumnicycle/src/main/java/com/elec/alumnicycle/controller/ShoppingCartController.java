@@ -43,6 +43,7 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/add")
+    @ApiOperation(value = "add product to cart")
     public AjaxRes<ShoppingCart> add(@RequestBody ShoppingCart shoppingCart, HttpServletRequest request){
         return shoppingCartService.add(shoppingCart,request);
     }
@@ -54,6 +55,7 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/clean")
+    @ApiOperation(value = "clean all shopping cart")
     public AjaxRes<String> clean(){
         return shoppingCartService.clean();
     }

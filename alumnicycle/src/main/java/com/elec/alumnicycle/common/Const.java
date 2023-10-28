@@ -75,6 +75,7 @@ public class Const {
     /**
      * construct service ip
      */
+
     public static String getServerIp(String ip, Integer port) {
         String serverIp = HTTP_PREFIX + ip + COLON + port + BLACKSLASH;
         return serverIp;
