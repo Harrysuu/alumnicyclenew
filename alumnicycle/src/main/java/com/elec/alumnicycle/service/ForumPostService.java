@@ -4,19 +4,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.entity.ForumPost;
-import com.elec.alumnicycle.entity.LifePost;
 import com.elec.alumnicycle.entity.User;
 import com.elec.alumnicycle.entity.params.ForumPostByIdParam;
 import com.elec.alumnicycle.entity.params.ForumPostParam;
-import com.elec.alumnicycle.entity.params.LifePostByIdParam;
-import com.elec.alumnicycle.entity.params.LifePostParam;
-import com.elec.alumnicycle.mapper.ForumPostMapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 public interface ForumPostService extends IService<ForumPost> {
 

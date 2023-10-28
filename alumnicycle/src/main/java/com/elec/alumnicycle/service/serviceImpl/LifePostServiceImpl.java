@@ -4,10 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.elec.alumnicycle.common.AjaxRes;
-import com.elec.alumnicycle.common.BaseContext;
 import com.elec.alumnicycle.entity.*;
 import com.elec.alumnicycle.entity.params.LifePostByIdParam;
-import com.elec.alumnicycle.mapper.EnrolMapper;
 import com.elec.alumnicycle.mapper.LifePostMapper;
 import com.elec.alumnicycle.entity.params.LifePostParam;
 import com.elec.alumnicycle.service.CreateLifePostService;
@@ -15,7 +13,6 @@ import com.elec.alumnicycle.service.EnrolService;
 import com.elec.alumnicycle.service.LifePostService;
 import com.elec.alumnicycle.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 @Service
@@ -52,14 +48,7 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
     @Override
     public AjaxRes<String> addLifePost(HttpServletRequest request, LifePost lifePost) {
 
-        //get user id
-//        Long userId = BaseContext.getCurrentId();
         Long userId = (Long) request.getSession().getAttribute("User");
-
-        // for test only
-//        userId = 99L;
-//        String stringValueId = String.valueOf(userId);
-//        log.info( "test get user id"+String.valueOf(stringValueId));
 
         //set post time
         lifePost.setPostTime(LocalDateTime.now());
@@ -107,9 +96,6 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
     @Override
     public AjaxRes<LifePost> enrolLifePost(HttpServletRequest request, Long lifePostId) {
 
-//        Long currentUserId = BaseContext.getCurrentId();
-//        Long currentUserId = 99L;
-
         // get current userID
         Long currentUserId = (Long) request.getSession().getAttribute("User");
 
@@ -135,9 +121,6 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
 
     @Override
     public AjaxRes<LifePost> unEnrolLifePost(HttpServletRequest request, Long lifePostId) {
-        // get current userID
-//        Long currentUserId = BaseContext.getCurrentId();
-//        Long currentUserId = 99L;
 
         // get current userID
         Long currentUserId = (Long) request.getSession().getAttribute("User");
@@ -163,9 +146,6 @@ public class LifePostServiceImpl extends ServiceImpl<LifePostMapper, LifePost> i
 
     @Override
     public boolean enrolStatusCheck(HttpServletRequest request, Long lifePostId) {
-        // get current userID
-//        Long currentUserId = BaseContext.getCurrentId();
-//        Long currentUserId = 99L;
 
         // get current userID
         Long currentUserId = (Long) request.getSession().getAttribute("User");

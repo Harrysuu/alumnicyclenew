@@ -21,9 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * 购物车
- */
 @Slf4j
 @RestController
 @RequestMapping("/shoppingCart")
@@ -44,38 +41,26 @@ public class ShoppingCartController {
     public AjaxRes<Page<ShoppingCart>> getPostByUserId(@RequestBody ShoppingCartByIdParam param){
         return shoppingCartService.getPostByUserId(param);
     }
-    /**
-     * 添加购物车
-     * @param shoppingCart
-     * @return
-     */
+
     @PostMapping("/add")
     public AjaxRes<ShoppingCart> add(@RequestBody ShoppingCart shoppingCart, HttpServletRequest request){
         return shoppingCartService.add(shoppingCart,request);
     }
 
-    /**
-     * 更新购物车
-     * @return
-     */
     @PostMapping("/update")
     @ApiOperation(value = "update shoppingCart")
     public AjaxRes<ShoppingCart> updateShoppingCart(@RequestBody ShoppingCart shoppingCart){
         return shoppingCartService.updateShoppingCart(shoppingCart);
     }
 
-    /**
-     * 清空购物车
-     * @return
-     */
     @GetMapping("/clean")
     public AjaxRes<String> clean(){
         return shoppingCartService.clean();
     }
 
     /**
-     * 购物车删除单个 入参 goodsId 必传 userId（用户从threadLocal中获取时非必传，否则必传）
-     * @return
+     * To delete a single item from the shopping cart, the input parameter goodsId must be passed userId
+     * (it is not required when the user obtains it from threadLocal, otherwise it must be passed)
      */
     @PostMapping("/deleteOne")
     @ApiOperation(value = "delete one goods")

@@ -10,52 +10,50 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Ajax封装类
- *
- * @author YngJea
+ * Ajax encapsulation
  */
 @Data
 @Accessors(chain = true)
-@ApiModel(value = "返回数据实体",description = "返回数据")
+@ApiModel(value = "return entity",description = "return data")
 public class AjaxRes<T> implements Serializable{
 
     private static final long serialVersionUID = 6390864154586650382L;
 
     /**
-     * 返回码值,默认值Const.REQUEST_FAILED
+     * default Const.REQUEST_FAILED
      */
-    @ApiModelProperty(value = "返回码值", required = true)
+    @ApiModelProperty(value = "return value", required = true)
     private int res = Const.SUCCESS;
 
     /**
-     * 返回消息
+     * return message
      */
-    @ApiModelProperty(value = "返回码值")
+    @ApiModelProperty(value = "return value")
     private String resMsg;
 
     /**
-     * 返回对象
+     * return object
      */
-    @ApiModelProperty(value = "返回对象")
+    @ApiModelProperty(value = "return object")
     private T result;
 
     /**
-     * 错误堆栈
+     * wrong message stack
      */
-    @ApiModelProperty(value = "错误堆栈")
+    @ApiModelProperty(value = "wrong message stack")
     private String stackTrace;
 
     /**
-     * 返回成功值
+     * return success object
      *
-     * @param obj 设置对象
+     * @param obj object
      */
     public static <T> AjaxRes<T> success(T obj) {
         return success(obj, Const.SUCCESS_MSG);
     }
 
     /**
-     * 返回成功
+     * return success
      *
      * @return
      */
@@ -64,18 +62,18 @@ public class AjaxRes<T> implements Serializable{
     }
 
     /**
-     * 返回成功值
+     * return success
      *
-     * @param resMsg 返回码值解析
+     * @param resMsg return resMsg
      */
     public static <T> AjaxRes<T> successMsg(String resMsg) {
         return success(null, resMsg);
     }
 
     /**
-     * 返回成功值
+     * return success
      *
-     * @param resMsg 返回码值解析
+     * @param resMsg ajaxRes
      */
     public static <T> AjaxRes <T>success(T obj, String resMsg) {
         AjaxRes<T> ajaxRes = new AjaxRes<T>();
@@ -84,34 +82,34 @@ public class AjaxRes<T> implements Serializable{
     }
 
     /**
-     * 返回失败值
+     * return fail
      */
     public static <T> AjaxRes <T>fail() {
         return fail(null, Const.FAIL_MSG);
     }
 
     /**
-     * 返回失败值
+     * return fail
      *
-     * @param obj 设置对象
+     * @param obj object
      */
     public static <T> AjaxRes<T> fail(T obj) {
         return fail(obj, Const.FAIL_MSG);
     }
 
     /**
-     * 返回失败值
+     * return fail
      *
-     * @param resMsg 返回码值解析
+     * @param resMsg
      */
     public static <T> AjaxRes<T> failMsg(String resMsg) {
         return fail(null, resMsg);
     }
 
     /**
-     * 返回失败值
+     * return fail
      *
-     * @param resMsg 返回码值解析
+     * @param resMsg ajaxRes
      */
     public static <T> AjaxRes<T> fail(T obj, String resMsg) {
         AjaxRes<T> ajaxRes = new AjaxRes<T>();
@@ -120,10 +118,10 @@ public class AjaxRes<T> implements Serializable{
     }
 
     /**
-     * 设置成功值
+     * set success
      *
-     * @param obj    设置对象
-     * @param resMsg 设置码值解析
+     * @param obj    set object
+     * @param resMsg set resMsg
      */
     private AjaxRes<T> setSuccess(T obj, String resMsg) {
         this.setResMsg(resMsg);
@@ -133,10 +131,10 @@ public class AjaxRes<T> implements Serializable{
     }
 
     /**
-     * 返回失败值
+     * return fail
      *
-     * @param obj    设置对象
-     * @param resMsg 设置码值解析
+     * @param obj    set object
+     * @param resMsg set resMsg
      */
     private AjaxRes<T> setFailMsg(T obj, String resMsg) {
         this.setResMsg(resMsg);

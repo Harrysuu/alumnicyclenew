@@ -10,10 +10,6 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @Description:
- * @version: 1.0
- **/
 public class UserTest extends TestBase {
 
     @Test
@@ -23,13 +19,12 @@ public class UserTest extends TestBase {
         Assert.assertNotNull(methodInfo);
         HashMap<String,Object > param = methodInfo.getParam();
 
-        // 设置参数
         methodInfo.setHasParam(true);
         param.put("username","Alice20236");
 
         Object ajaxRes = mock(methodInfo);
 
-        Assert.assertEquals("用户名不唯一",true,ajaxRes);
+        Assert.assertEquals("username not unique",true,ajaxRes);
 
     }
 
@@ -40,7 +35,7 @@ public class UserTest extends TestBase {
 
         Assert.assertNotNull(methodInfo);
         HashMap<String,Object > param = methodInfo.getParam();
-        // 设置参数
+
         methodInfo.setHasParam(true);
         param.put("userId","99");
 
@@ -56,7 +51,7 @@ public class UserTest extends TestBase {
 
         Assert.assertNotNull(methodInfo);
         HashMap<String,Object > param = methodInfo.getParam();
-        // 设置参数
+
         methodInfo.setHasParam(true);
         param.put("userId","99");
 
@@ -78,7 +73,7 @@ public class UserTest extends TestBase {
         Double newCredit =(JSON.parseObject(ajaxRes.getResult().toString(),User.class) ).getCredit();
 
         Double except =Double.valueOf( OldCredit + addValue);
-        Assert.assertEquals("添加失败 ：：",except  ,newCredit);
+        Assert.assertEquals("add credit fail:::",except  ,newCredit);
 
     }
 
@@ -95,7 +90,7 @@ public class UserTest extends TestBase {
         Map<String, Object> sessionAttributes = methodInfo.getSessionAttributes();
         sessionAttributes.put("User",99L);
         AjaxRes ajaxRes = (AjaxRes) mock(methodInfo);
-        Assert.assertEquals("登陆成功：：：", "Login success", ajaxRes.getResult());
+        Assert.assertEquals("login:::", "Login success", ajaxRes.getResult());
 
     }
 
@@ -118,7 +113,7 @@ public class UserTest extends TestBase {
 
         User user = JSONObject.parseObject(ajaxRes.getResult().toString(), User.class);
 
-        Assert.assertEquals("修改成功 ：：：", "3333", user.getDescription());
+        Assert.assertEquals("update user :::", "3333", user.getDescription());
 
     }
 

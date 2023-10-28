@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.elec.alumnicycle.common.AjaxRes;
-import com.elec.alumnicycle.common.BaseContext;
 import com.elec.alumnicycle.entity.User;
 import com.elec.alumnicycle.entity.params.LoginParam;
 import com.elec.alumnicycle.entity.params.UserParam;
@@ -38,7 +37,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
                 //set userId to session
                 request.getSession().setAttribute("User",this.getOne(lqw).getId());
-                //BaseContext.setCurrentId(this.getOne(lqw).getId());
+
                 return AjaxRes.success(this.getOne(lqw));
             }
             return AjaxRes.failMsg("wrong verification code!");
@@ -57,19 +56,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // if Username is not exist
         if(this.count(lqw) == 0){
             return  AjaxRes.failMsg("User not exist");
-//            return AjaxRes.fail(null,"User not exist");
+
         }
 
         // check password
         if (!loginUser.getPassword().equals(password)){
             return  AjaxRes.failMsg("Wrong Password");
-//            return AjaxRes.fail(null,"Wrong Password");
+
         }
 
         // check user status
         if (loginUser.getStatusInformation() == 0){
             return  AjaxRes.failMsg("This user is blocked");
-//            return AjaxRes.fail(null,"This user is blocked");
+
         }
 
         //set session intervals as 2 hours
@@ -80,13 +79,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Long userId = loginUser.getId();
         request.getSession().setAttribute("User",userId);
 
-        //set userId to BaseContext
-        //BaseContext.setCurrentId(userId);
-
-        session = request.getSession(false); // 获取当前会话的Session对象，如果没有会话则返回null
+        session = request.getSession(false);
         if (session != null) {
-            int maxInactiveInterval = session.getMaxInactiveInterval(); // 获取Session的最大非活动时间间隔（以秒为单位）
-            // maxInactiveInterval 即为Session的时效
+            int maxInactiveInterval = session.getMaxInactiveInterval();
+
             System.out.println("Session时效（秒）：" + maxInactiveInterval);
         }
 
@@ -164,8 +160,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public AjaxRes<User> updateUser(HttpServletRequest request, User user) {
 
-//        Long currentId = BaseContext.getCurrentId();
-//        currentId = 99L;
         Long currentId = (Long) request.getSession().getAttribute("User");
 
         // get currentUser
@@ -198,8 +192,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public AjaxRes<User> addCredit(HttpServletRequest request, double point) {
-//        Long currentId = BaseContext.getCurrentId();
-//        currentId = 99L;
 
         Long currentId = (Long) request.getSession().getAttribute("User");
 
@@ -219,9 +211,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public AjaxRes<User> changePassword(HttpServletRequest request, UserPasswordParam param) {
-        // get id from BaseContext
-//        Long currentId = BaseContext.getCurrentId();
-//        currentId = 99L;
 
         Long currentId = (Long) request.getSession().getAttribute("User");
 

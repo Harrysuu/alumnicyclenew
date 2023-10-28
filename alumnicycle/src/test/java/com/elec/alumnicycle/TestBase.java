@@ -30,8 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Description: mock 测试基础类 所有的测试类都需要继承当前的类
- * @version: 1.0
+ * @Description: mock base for all tests
  **/
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -51,21 +50,21 @@ public class TestBase {
 
     public TestMethodInfo  getMethodInfo(Class<?> targetCLass,String methodName) {
 
-        // 获取类上的注解
+        // Get annotations on a class
         RequestMapping annotation = AnnotationUtils.findAnnotation(targetCLass, RequestMapping.class);
-        // path 的前缀
+        // prefix of path
         String path = annotation.path()[0];
-        // 获取所有的方法
+        // Get all methods
         Method[] methods = targetCLass.getMethods();
 
         String requestType = "get";
         for (Method method : methods) {
 
             if (method.getName().equals(methodName)) {
-                // 获取当前方法上的参数
+                // Get the parameters on the current method
                 Parameter[] parameters = method.getParameters();
 
-                // Get 请求
+                // Get request
                 if(AnnotatedElementUtils.hasAnnotation(method, GetMapping.class)){
 
                     GetMapping getMapping = method.getAnnotation(GetMapping.class);
@@ -75,7 +74,7 @@ public class TestBase {
                     requestType = "get";
 
                 }
-                // post 请求
+                // post request
                 if(AnnotatedElementUtils.hasAnnotation(method, PostMapping.class)){
 
                     PostMapping postMapping = method.getAnnotation(PostMapping.class);
@@ -84,10 +83,10 @@ public class TestBase {
                     requestType="post";
                 }
 
-                // 获取方法名称
+                // Get method name
                 String name = method.getName();
 
-                // 获取方法的返回值 类型的全路径名
+                // Get the full path name of the return value type of the method
                 Class<?> returnType = method.getReturnType();
 
                 HashMap<String,Object> param= new HashMap<>();
@@ -99,30 +98,30 @@ public class TestBase {
 
                     for(Parameter parameter : parameters){
 
-                        // 获取 参数名
+                        // Get parameter name
                         String parameterName = parameter.getName();
 
-                        // 获取参数类型
+                        // Get parameter type
                         Class<?> type = parameter.getType();
 
-                        // 参数被 @requestBody 标记
+                        // Parameters are marked with @requestBody
                         if(AnnotatedElementUtils.hasAnnotation(parameter, RequestBody.class)){
 
                             requestBodyParam.put(parameterName,type);
                             continue;
                         }
-                        // 参数被 @requestParam 标记
+                        // Parameters are marked with @requestParam
                         if(AnnotatedElementUtils.hasAnnotation(parameter, RequestParam.class)){
                             param.put(parameterName,type);
                             continue;
                         }
-                        // 参数类型是否是  HttpServletRequest
+                        // Whether the parameter type is HttpServletRequest
                         if(HttpServletRequest.class.isAssignableFrom(type)){
 
                             sessionAttributes.put(parameterName,type);
                             continue;
                         }
-                        // 其他的放到 param 中
+                        // Put the others in param
                         param.put(parameterName,type);
 
                     }
@@ -147,14 +146,12 @@ public class TestBase {
 
     public Object mock(TestMethodInfo methodInfo) throws Exception {
 
-
         MockHttpServletRequestBuilder requestBuilder = requestBuilder(methodInfo);
-
 
         Assert.assertNotNull(requestBuilder);
 
         Map<String, Object> param = methodInfo.getParam();
-        // 设置参数 requestParam / input
+        // Set parameters requestParam/input
         if(methodInfo.isHasParam() && param !=null && !param.isEmpty()){
             param.keySet().forEach(k ->{
 
@@ -163,7 +160,7 @@ public class TestBase {
         }
 
         Map<String, Object> sessionAttributes = methodInfo.getSessionAttributes();
-        // 设置 session
+        // set session
         if(methodInfo.isHasSession() && sessionAttributes !=null && !sessionAttributes.isEmpty()){
             requestBuilder.sessionAttrs(sessionAttributes);
 
@@ -171,12 +168,12 @@ public class TestBase {
 
         Map<String, Object> requestBodyParam = methodInfo.getRequestBodyParam();
 
-        // 设置参数 requestBody
+        // set requestBody
         if(methodInfo.isHasRequestBody() && requestBodyParam !=null && !requestBodyParam.isEmpty()){
 
             requestBuilder.content(JSON.toJSON(requestBodyParam).toString());
         }
-        // mock调用
+        // use mock
         MvcResult mvcResult = mockMvc.perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print())
@@ -186,13 +183,10 @@ public class TestBase {
     }
 
 
-
-
-
     private MockHttpServletRequestBuilder  requestBuilder(TestMethodInfo methodInfo){
 
         String requestType = methodInfo.getRequestType();
-        // 添加调用的接口路径
+        // Add the calling interface path
         MockHttpServletRequestBuilder requestBuilder = null;
         if("get".equalsIgnoreCase(requestType)){
 

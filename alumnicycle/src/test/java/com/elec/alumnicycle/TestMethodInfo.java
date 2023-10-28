@@ -4,11 +4,8 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.HashMap;
-import java.util.Map;
 
-/**
- * @version: 1.0
- **/
+
 @Data
 @Builder
 public class TestMethodInfo {

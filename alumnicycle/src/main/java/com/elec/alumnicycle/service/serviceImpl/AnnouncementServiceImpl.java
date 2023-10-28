@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.elec.alumnicycle.common.AjaxRes;
-import com.elec.alumnicycle.common.BaseContext;
 import com.elec.alumnicycle.entity.Announcement;
 import com.elec.alumnicycle.entity.CreateAnnounce;
 import com.elec.alumnicycle.entity.params.AnnouncementByIdParam;
@@ -38,9 +37,6 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
 
     @Override
     public AjaxRes<String> addAnnouncement(HttpServletRequest request, Announcement announcement) {
-        //get admin id
-//        Long adminId = BaseContext.getCurrentId();
-//        adminId = 99L;
 
         //get admin id
         Long adminId = (Long) request.getSession().getAttribute("Admin");

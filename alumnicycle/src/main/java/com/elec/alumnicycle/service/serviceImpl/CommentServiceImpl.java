@@ -2,10 +2,7 @@ package com.elec.alumnicycle.service.serviceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.elec.alumnicycle.common.AjaxRes;
 import com.elec.alumnicycle.entity.Comment;
-import com.elec.alumnicycle.entity.CreateForumPost;
-import com.elec.alumnicycle.entity.User;
 import com.elec.alumnicycle.service.UserService;
 import com.elec.alumnicycle.mapper.CommentMapper;
 import com.elec.alumnicycle.service.CommentService;

@@ -52,11 +52,6 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
         //get user id
         Long userId = (Long) request.getSession().getAttribute("User");
 
-        // for test only
-        // userId = (long) 1;
-        // String stringValueId = String.valueOf(userId);
-        // log.info( "test get user id"+String.valueOf(stringValueId));
-
         //set post time
         forumPost.setPostTime(LocalDateTime.now());
 
@@ -92,12 +87,8 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
 
     @Override
     public AjaxRes<ForumPost> addComment(HttpServletRequest request, Long forumPostId, String comment, Long userId) {
-        // get current userID
-//        Long currentUserId = BaseContext.getCurrentId();
-//        Long currentUserId = (Long) request.getSession().getAttribute("User");
 
         Comment newComment = new Comment();
-//        newComment.setUserId(currentUserId);
         newComment.setForumPostId(forumPostId);
         newComment.setComment(comment);
         newComment.setUserId(userId);

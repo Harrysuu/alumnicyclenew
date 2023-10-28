@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * 文件上传下载
+ * file upload and download
  */
 @RestController
 @RequestMapping("/common")
@@ -47,28 +47,28 @@ public class CommonController {
 
     @PostMapping("/upload")
     @ApiOperation(value = "upload image")
-    public AjaxRes<String> upload(MultipartFile file){  //参数名需和前端生成保持一致,file为临时文件
+    public AjaxRes<String> upload(MultipartFile file){
 
-//        使用UUID重新生成文件名防止重复覆盖
+        //Use UUID to regenerate file names to prevent duplicate overwriting
         String original = file.getOriginalFilename();
         String suffix = original.substring(original.lastIndexOf("."));
         String fileName = UUID.randomUUID()+ suffix;
 
-//        判断目录是否存在
+        //Determine whether the directory exists
         File dir = new File(basePath);
         if(!dir.exists()){
-//            需要创建目录
+
             dir.mkdirs();
         }
 
         try {
-//            临时文件转存
+            //Temporary file transfer
             file.transferTo(new File(basePath + fileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
         log.info(file.toString());
-//        文件名称存入数据库
+
         return AjaxRes.success(fileName);
 
     }
@@ -78,16 +78,16 @@ public class CommonController {
     public void download(String name, HttpServletResponse response){
 
         try {
-//            输入流，读取文件
+            // Input stream, read file
             FileInputStream fileInputStream = new FileInputStream(new File(basePath + name));
-//            输出流，写回浏览器展示图片
+            // Output stream, write back to the browser to display the image
             ServletOutputStream outputStream = response.getOutputStream();
 
-//            固定文件类型
+            // Fix file types
             response.setContentType("image/jpeg");
             byte[] bytes = new byte[10240];
             int len;
-//            读取文件，按字节
+            // Read file, bytes
             while ((len = fileInputStream.read(bytes)) != -1){
                 outputStream.write(bytes,0,len);
                 outputStream.flush();

@@ -10,9 +10,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/**
- * 购物车
- */
 @Data
 @ApiModel(description = "Shopping Cart entity")
 public class ShoppingCart implements Serializable {

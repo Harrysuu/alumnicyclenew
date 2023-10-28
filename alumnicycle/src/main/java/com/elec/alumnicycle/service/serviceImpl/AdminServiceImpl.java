@@ -6,15 +6,12 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.elec.alumnicycle.common.AjaxRes;
-import com.elec.alumnicycle.common.BaseContext;
 import com.elec.alumnicycle.entity.Administrator;
 import com.elec.alumnicycle.entity.User;
 import com.elec.alumnicycle.entity.params.UserPasswordParam;
 import com.elec.alumnicycle.mapper.AdminMapper;
 import com.elec.alumnicycle.service.AdminService;
-import com.elec.alumnicycle.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -57,9 +54,6 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Administrator> im
         // set user id into Session
         Long adminId = loginAdministrator.getId();
         request.getSession().setAttribute("Admin",adminId);
-
-        //set userId to BaseContext
-//        BaseContext.setCurrentId(adminId);
 
         loginAdministrator.setOperationTime(LocalDateTime.now());
         this.updateById(loginAdministrator);
@@ -111,8 +105,6 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Administrator> im
     @Override
     public AjaxRes<Administrator> updateAdmin(HttpServletRequest request, Administrator administrator) {
 
-//        Long currentId = BaseContext.getCurrentId();
-//        currentId = 33L;
 
         // get currentId
         Long currentId = (Long) request.getSession().getAttribute("Admin");
@@ -146,9 +138,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Administrator> im
 
     @Override
     public AjaxRes<Administrator> changePassword(HttpServletRequest request, UserPasswordParam param) {
-        // get id from BaseContext
-//        Long currentId = BaseContext.getCurrentId();
-//        currentId = 33L;
+
 
         // get currentId
         Long currentId = (Long) request.getSession().getAttribute("Admin");
