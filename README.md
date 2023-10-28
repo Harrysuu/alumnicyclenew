@@ -3,7 +3,7 @@
 # How to Run
 1. You need to set up mysql(version 8.0.0 or above), and set up the sql file that we provided to set up the tables and data.
 2. Change your absolute path of the file base on your mysql dataset, including username and password, and your image files(img).
-3. Load or the dependency in Maven.
+3. Load all the dependency in Maven.
 
 # Used Dependency
 <parent>
