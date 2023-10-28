@@ -24,4 +24,4 @@ mybatis-plus:
       id-type: ASSIGN_ID
 
 alumniCycle:
-  path: /Users/harry/Documents/southgis/img/
+  path: /Users/zhuyunwang/Downloads/img/
